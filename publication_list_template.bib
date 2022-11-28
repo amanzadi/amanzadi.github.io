@@ -1,0 +1,30 @@
+---
+---
+
+@STRING{CVPR = {Proc. IEEE Conf. on Computer Vision and Pattern	Recognition (CVPR)}}
+@STRING{ECCV = {Proc. of the European Conf. on Computer Vision (ECCV)}}
+@STRING{ICCV = {Proc. of the IEEE International Conf. on Computer Vision (ICCV)}}
+@STRING{THREEDV = {Proc. of the International Conf. on 3D Vision (3DV)}}
+@STRING{NEURIPS = {Advances in Neural Information Processing Systems (NeurIPS)}}
+@STRING{ARXIV = {arXiv.org}}
+
+
+@inproceedings{Niemeyer2022CVPR,
+  author          = {Michael Niemeyer and Jonathan T. Barron and Ben Mildenhall and Mehdi S. M. Sajjadi and Andreas Geiger and Noha Radwan},
+  title           = {RegNeRF: Regularizing Neural Radiance Fields for View Synthesis from Sparse Inputs},
+  booktitle       = CVPR,
+  year            = {2022},
+  abstract        = {Neural Radiance Fields (NeRF) have emerged as a powerful representation for the task of novel view synthesis due to their simplicity and state-of-the-art performance. Though NeRF can produce photorealistic renderings of unseen viewpoints when many input views are available, its performance drops significantly when this number is reduced. We observe that the majority of artifacts in sparse input scenarios are caused by errors in the estimated scene geometry, and by divergent behavior at the start of training. We address this by regularizing the geometry and appearance of patches rendered from unobserved viewpoints, and annealing the ray sampling space during training. We additionally use a normalizing flow model to regularize the color of unobserved viewpoints. Our model outperforms not only other methods that optimize over a single scene, but in many cases also conditional models that are extensively pre-trained on large multi-view datasets.},
+  cvlibs_month   = {12},
+  img            = {./assets/img/publications/ijms.png},
+  html = {https://m-niemeyer.github.io/regnerf},
+  pdf = {https://drive.google.com/file/d/1S_NnmhypZjyMfwqcHg-YbWSSYNWdqqlo/view?usp=sharing},
+  supp = {https://drive.google.com/file/d/15ip8Fvfxp6rNRfBnbJEnFCjIJeFMH4CE/view?usp=sharing},
+  video = {https://youtu.be/QyyyvA4-Kwc},
+  code = {https://github.com/google-research/google-research/tree/master/regnerf},
+  blog = {https://celeristx.com/publications/},
+  selected       = {true},
+  award = {Oral Presentation},
+  poster ={https://drive.google.com/file/d/1kYknB2Ap3I3avstmPxAa9IiW8m85AZEF/view?usp=sharing},
+}
+

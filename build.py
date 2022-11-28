@@ -7,41 +7,32 @@ def get_personal_data():
     github = "amanzadi"
     linkedin = "amanzadi"
     bio_text = f"""
-                <p> I am just a humble human being. The following descriptions are simply social statuses that I have gained through my life, which you may or may not be interested in.
-                <span style="color: red;">I am currently looking for PhD positions, perferbly at the intersection of Machine Learning and Drug Discovery & Development!</span>
+                <p> I am just a human being. The following descriptions are simply social statuses that I have gained through my life, which you may or may not be interested in.
                 <p>
                     <span style="font-weight: bold;">Research:</span>
-                    I am excited about complex interdisciplinary problems in Biomedicine that can be tackled with learning-based systems. Currently, my research focuses on identifying optimal combinatorial treatments for complex diesease with Systems Medicine approach. I am specially interested in the application of Graph Neural Networks in biomedical research . Further, I am big fan of neural scene representations, \ie, how scenes are best represented in learning-based systems using deep neural networks.
+                     I am excited about complex interdisciplinary problems in Biomedicine that can be tackled with learning-based systems. I am especially interested in the application of Graph Neural Networks (GNN) in biomedical research. Currently, my research focuses on identifying safe drug combinations for complex diseases with no standard treatments by integrating Systems Medicine and Deep Learning. 
+                     I am presently a Clinical Data Scientist at the <a href="https://compmed.se/" target="_blank">Unit of Computational Medicine</a> at <a href="https://ki.se/en" target="_blank">Karolinska Institute (KI)</a> and <a href="https://www.karolinska.se/en/karolinska-university-hospital/" target="_blank">Karolinska University Hospital (KUH)</a>. 
+                    <span style="color: red;">I am currently seeking PhD positions in the areas of Machine Learning and Drug Discovery & Development.</span>
+                
                 </p>
-                <p>
+                 <p>
                     <span style="font-weight: bold;">Bio:</span>
-                    I studied BSc Chemistry & Mechanical Engineering (minor) at the <a href="https://en.sharif.edu/" target="_blank">Sharif University of Technology</a>, Iran. During my Bachelor studies, I spent one year at the <a href="https://www.ub.edu/web/portal/en/" target="_blank">University of Barcelona</a>, Spain, funded by the ERASMUS program.
-                    Following my interest in computer science, I then moved to Scotland to gain my Master's degree in Advanced Computer Science at the <a href="https://www.st-andrews.ac.uk/computer-science/" target="_blank">University of St Andrews</a>.
-                    In October 2018, I started my PhD in computer vision / machine learning in the <a href="https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/autonomous-vision/home/" target="_blank">AVG group</a> at the <a href ="https://is.mpg.de/" target="_blank">Max Planck Institute for Intelligent Systems</a> in Tübingen, Germany, under the supervision of <a href="http://cvlibs.net/" target="_blank">Andreas Geiger</a>.
-                    In 2021 I joined <a href="https://research.google/teams/brain/">Google Brain</a> for an internship and subsequently as a student researcher.
-                </p>
-                <p>
-                    <span style="font-weight: bold;">Awards:</span>
-                    In 2011, I graduated as top of my year from secondary school and received <a href="https://www.e-fellows.net/" target="_blank">the e-fellows scholarship</a> and were admitted to <a href="https://www.mathematik.de/" target="_blank">the Germany Mathematics Society</a> and <a href="https://www.dpg-physik.de/" target="_blank">the German Physics Society</a>. In 2017 I received the Dean's List Award for Academic Excellence for my Master's degree.
-                    Since 2018, I am scholar of <a href="https://imprs.is.mpg.de/" target="_blank">the International Max Planck Research School for Intelligent Systems (IMPRS-IS)</a>.
-                    Our two research projects Occupancy Networks and DVR were selected to be <a href="https://www.paperdigest.org/2021/03/most-influential-cvpr-papers-2021-03/" target="_blank">among the top-15 most influencial CVPR papers</a> from 2019 and 2020, respectively.
-                    In 2021, we received the CS teaching award for our <a href="https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/autonomous-vision/lectures/computer-vision/" target="_blank">computer vision lecture</a> as well as  <a href="https://cyber-valley.de/en/news/meet-the-ai-gamedev-winners" target="blank">the AIGameDev scientific award</a> for our GRAF project and <a href="https://cvpr2021.thecvf.com/node/329" target="_blank">the CVPR Best Paper Award</a> for GIRAFFE (<a href="https://cyber-valley.de/en/news/best-paper-cvpr-2021" target="_blank">news coverage</a>).
-                </p>
+                    My MSc in Pharmaceutical Science was obtained from <a href="https://www.uu.se/en" target="_blank">Uppsala University</a> and my BSc in Chemistry & Mechanical Engineering (Minor) from the <a href="https://en.sharif.edu/" target="_blank">Sharif University of Technology</a> allowed me to enhance my knowledge in a variety of fields, including pharmaceutical modeling, chemical synthesis, computational chemistry, structural biology, molecular dynamics (MD), systems medicine, machine learning (including deep learning) to analyze genomic data, and AI-enhanced drug discovery and development.
+                    Among my many exciting projects, I have worked on the <a href="https://decision-for-liver.eu/" target="_blank">DECISION for Liver EU project</a>, in which I identified optimal combinatorial treatments for decompensated cirrhosis. Also, I have developed a geometric deep learning pipeline for targeted protein degradation drug design (in collaboration with <a href="https://www.merckgroup.com/en" target="_blank">Merck KGaA</a> and <a href="https://www.boehringer-ingelheim.com/" target="_blank">Boehringer Ingelheim</a>).
+                 </p>
                 <p>
                     <a href="https://amanzadi.github.io/assets/pdf/CV_Amir_Amanzadi.pdf" target="_blank" style="margin-right: 15px"><i class="fa fa-address-card fa-lg"></i> CV</a>
                     <a href="mailto:{email}" style="margin-right: 15px"><i class="far fa-envelope-open fa-lg"></i> Mail</a>
                     <a href="https://twitter.com/{twitter}" target="_blank" style="margin-right: 15px"><i class="fab fa-twitter fa-lg"></i> Twitter</a>
-                    <a href="https://scholar.google.com/citations?user=YJbIHQgAAAAJ&hl=en" target="_blank" style="margin-right: 15px"><i class="fa-solid fa-book"></i> Scholar</a>
+                    <a href="https://scholar.google.com/citations?user=YJbIHQgAAAAJ&hl=en" target="_blank" style="margin-right: 15px"><i class="fa-solid fa-graduation-cap"></i> Scholar</a>
                     <a href="https://github.com/{github}" target="_blank" style="margin-right: 15px"><i class="fab fa-github fa-lg"></i> Github</a>
                     <a href="https://www.linkedin.com/in/{linkedin}" target="_blank" style="margin-right: 15px"><i class="fab fa-linkedin fa-lg"></i> LinkedIn</a>
                 </p>
     """
     footer = """
             <div class="col-sm-12" style="">
-                <h4>Homepage Template</h4>
                 <p>
-                    Feel free to use this website as a template! It is fully responsive and very easy to use and maintain as it uses a python script that crawls your bib files to automatically add the papers and talks. <a href="https://github.com/m-niemeyer/m-niemeyer.github.io" target="_blank">Checkout the github repository for instructions on how to use it</a>. <br>
-                    <a href="https://kashyap7x.github.io/" target="_blank">&#9883;</a>
+                    This website is based on the lightweight and easy-to-use template from Michael Niemeyer. <a href="https://github.com/m-niemeyer/m-niemeyer.github.io" target="_blank">Checkout his github repository for instructions on how to use it</a>. <br>
                 </p>
             </div>
     """
@@ -216,7 +207,7 @@ def write_index_html(filename='index.html'):
     s = get_index_html()
     with open(filename, 'w') as f:
         f.write(s)
-    print(f'~~~~ Written index content to {filename}. ~~~~')
+    print(f'\n ~~~~ Written index content to {filename}. ~~~~ \n')
 
 if __name__ == '__main__':
     write_index_html('index.html')

@@ -7,24 +7,79 @@
 @STRING{THREEDV = {Proc. of the International Conf. on 3D Vision (3DV)}}
 @STRING{NEURIPS = {Advances in Neural Information Processing Systems (NeurIPS)}}
 @STRING{ARXIV = {arXiv.org}}
+@STRING{IJMS = {International Journal of Molecular Sciences}}
+@STRING{UU = {Uppsala University}}
+@STRING{RSC = {4th RSC-BMCS Conference, Royal Society of Chemistry}}
+@STRING{PES = {Polymer Engineering & Science}}
+@STRING{ABB = {Archives of Biochemistry and Biophysics}}
 
 
-@inproceedings{Niemeyer2022CVPR,
-  author          = {Michael Niemeyer and Jonathan T. Barron and Ben Mildenhall and Mehdi S. M. Sajjadi and Andreas Geiger and Noha Radwan},
-  title           = {RegNeRF: Regularizing Neural Radiance Fields for View Synthesis from Sparse Inputs},
-  booktitle       = CVPR,
+@inproceedings{IJMS2022,
+  author          = {Oliver Orasch and Noah Weber and Michael Müller and Amir Amanzadi and Chiara Gasbarri and Christopher Trummer},
+  title           = {Protein–protein interaction prediction for targeted protein degradation},
+  booktitle       = ijms,
   year            = {2022},
-  abstract        = {Neural Radiance Fields (NeRF) have emerged as a powerful representation for the task of novel view synthesis due to their simplicity and state-of-the-art performance. Though NeRF can produce photorealistic renderings of unseen viewpoints when many input views are available, its performance drops significantly when this number is reduced. We observe that the majority of artifacts in sparse input scenarios are caused by errors in the estimated scene geometry, and by divergent behavior at the start of training. We address this by regularizing the geometry and appearance of patches rendered from unobserved viewpoints, and annealing the ray sampling space during training. We additionally use a normalizing flow model to regularize the color of unobserved viewpoints. Our model outperforms not only other methods that optimize over a single scene, but in many cases also conditional models that are extensively pre-trained on large multi-view datasets.},
-  cvlibs_month   = {12},
-  img            = {./assets/img/publications/regnerf.jpg},
-  html = {https://m-niemeyer.github.io/regnerf},
-  pdf = {https://drive.google.com/file/d/1S_NnmhypZjyMfwqcHg-YbWSSYNWdqqlo/view?usp=sharing},
-  supp = {https://drive.google.com/file/d/15ip8Fvfxp6rNRfBnbJEnFCjIJeFMH4CE/view?usp=sharing},
-  video = {https://youtu.be/QyyyvA4-Kwc},
-  code = {https://github.com/google-research/google-research/tree/master/regnerf},
-  blog = {https://autonomousvision.github.io/graf/},
-  selected       = {true},
-  award = {Oral Presentation},
-  poster ={https://drive.google.com/file/d/1kYknB2Ap3I3avstmPxAa9IiW8m85AZEF/view?usp=sharing},
+  abstract        = {Protein-protein interactions (PPIs) play a fundamental role in various biological functions; thus, detecting PPI sites is essential for understanding diseases and developing new drugs. PPI prediction is of particular relevance for the development of drugs employing targeted protein degradation, as their efficacy relies on the formation of a stable ternary complex involving two proteins. However, experimental methods to detect PPI sites are both costly and time-intensive. In recent years, computer-aided approaches have been developed as screening tools, but these tools are primarily based on sequence information and are therefore limited in their ability to address spatial requirements and have thus far not been applied to targeted protein degradation. Here, we present a new deep learning architecture based on the concept of graph representation learning that can predict interaction sites and interactions of proteins based on their surface representations. We demonstrate that our model reaches state-of-the-art performance using AUROC scores on the established MaSIF dataset. We furthermore introduce a new dataset with more diverse protein interactions and show that our model generalizes well to this new data. These generalization capabilities allow our model to predict the PPIs relevant for targeted protein degradation, which we show by demonstrating the high accuracy of our model for PPI prediction on the available ternary complex data. Our results suggest that PPI prediction models can be a valuable tool for screening protein pairs while developing new drugs for targeted protein degradation.},
+  cvlibs_month   = {6},
+  img            = {./assets/img/publications/ijms.png},
+  html = {https://doi.org/10.3390/ijms23137033},
+  pdf = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9266413/pdf/ijms-23-07033.pdf},
+  supp = {https://zenodo.org/record/2625420},
+  video = {https://celeristx.com/wp-content/uploads/2022/03/Celeris-Therapeutics-2022-new-changes.mp4},
+  code = {https://ppiorthogonal-data.s3.eu-central-1.amazonaws.com/orthogonal_dataset.zip},
+  blog = {https://celeristx.com/publications/},
+  poster = {-}
 }
 
+@inproceedings{UU2021,
+  author          = {Amir Amanzadi},
+  title           = {Predicting safe drug combinations with Graph Neural Networks (GNN)},
+  booktitle       = uu,
+  year            = {2021},
+  abstract        = {Many people - especially during their elderly - consume multiple drugs for the treatment of complex or co-existing diseases. Identifying side effects caused by polypharmacy is crucial for reducing mortality and morbidity of the patients which will lead to improvement in their quality of life. Since there is immense space for possible drug combinations, it is infeasible to examine them entirely in the lab. In silico models can offer a convenient solution, however, due to the lack of a sufficient amount of homogenous data it is difficult to develop both reliable and scalable models in its ability to accurately predict Polypharmacy Side Effect. Recent advancement in the field of representational learning has utilized the power of graph networks to harmonize information from the heterogeneous biological databases and interactomes. This thesis takes advantage of those techniques and incorporates them with the state-of-the-art Graph Neural Network algorithms to implement a Deep learning pipeline capable of predicting the Adverse Drug Reaction of any given paired drug combinations.},
+  cvlibs_month   = {8},
+  img            = {./assets/img/publications/thesis.png},
+  html = {http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-446691},
+  pdf = {https://www.diva-portal.org/smash/get/diva2:1570600/FULLTEXT01.pdf},
+  code = {https://github.com/amanzadi/MS_Thesis},
+}
+
+@inproceedings{RSC2021,
+  author          = {Amir Amanzadi and Narsis Kiani},
+  title           = {Explainable polypharmacy side effect prediction with Siamese graph convolutional neural networks},
+  booktitle       = rsc,
+  year            = {2021},
+  abstract        = {Polypharmacy misuse is estimated to cost the globe 18 billion dollars each year, according to the WHO. By utilizing graph neural networks, we have developed a representational learning framework capable of accurately and interpretably predicting the Polypharmacy Side Effect (PSE) of any given drug combination. The pipeline is fully automated, and it only requires SMILES strings of the compounds for the prediction. To achieve this, first, we established the Protein-Side effect Association (PSA) as node features of the human protein-protein interaction network (PPI) as shown in figure 1. Next for each drug, we extract its PSAsubgraph, which contains the proteins with a high binding affinity towards corresponding drugs. These subgraphs then will be used in pairs as the input of the model. The Siamese Graph Convolutional Neural Networks (SiGCN) will predict the individual side effect and then by aggregation; the model predicts the probability of occurrence of each 964 PSEs as illustrated by figure 2. The model was trained using the TWOSIDES dataset and obtains 91.43% accuracy with an external validation dataset containing 10,000 unique drug combinations none of which were presented in the training and testing process. Since the inputs are PPIs, the predictions can be affiliated to the proteins that may be causing a particular PSE. Despite SiGCN achieving high accuracy in graph classification, it has inferior average precision and F1 score which are respectively 48.03% and 30.09%. The reason of this behaviour is rooted in the intrinsic sparsity and imbalance of the TWOSIDES dataset which can be improved by applying Graph Attention Network (GAT) algorithm in future works.},
+  cvlibs_month   = {10},
+  img            = {./assets/img/publications/rsc.jpg},
+  html = {https://twitter.com/RSC_CICAG/status/1439600632957214728?s=20},
+  video = {https://youtu.be/uRU9AhME1ps?t=355},
+  code = {https://github.com/amanzadi/MS_Thesis},
+  selected       = {true},
+  award = {Lightning Presentation},
+}
+
+
+@inproceedings{PES2020,
+  author          = {Ali Pourjavadi and Zahra Mazaheri Tehrani and Hamid Salami and Farzad Seidi and Anahita Motamedi and Amir Hossein Amanzadi and Ehsan Zayerzadeh and Meisam Shabanian},
+  title           = {Both Tough and Soft Double Network Hydrogel Nanocomposite Based on O-Carboxymethyl Chitosan/Poly(vinyl alcohol) and Graphene Oxide: A Promising Alternative for Tissue Engineering},
+  booktitle       = pes,
+  year            = {2020},
+  abstract        = {A reinforced double network (DN) hydrogel as a candidate for skin scaffold was prepared. It consists of O-carboxymethyl chitosan, polyvinyl alcohol, honey, CaCl2, and graphene oxide. The various concentrations of CaCl2, namely, 30, 45, and 60 wt% were investigated. Besides, the GO content was studied as 3, 5, and 10 wt%. The structure of the DN was characterized by Fourier-transform infrared spectroscopy, thermogravimetric analysis, differential scanning calorimetry, X-ray diffraction, energy dispersive X-ray and Brunauer-Emmett-Teller were evaluated. The mechanical properties were studied, too. It showed that the DN with 45 wt% CaCl2 was optimized. Also, swelling mechanism was investigated. Moreover, with the increase in GO content, the mechanical strength was increased. The cytotoxicity was evaluated and it was indicated that DN with 45% CaCl2 and 5% GO had an acceptable level of biocompatibility. Moreover, scanning electron microscopy images showed the porous structure of the DN nanocomposite. Thus, the DN has the potential to be applied in tissue engineering as a skin scaffold. POLYM. ENG. SCI., 60:889–899, 2020. © 2020 Society of Plastics Engineers.},
+  cvlibs_month   = {5},
+  img            = {./assets/img/publications/pes.png},
+  html = {https://doi.org/10.1002/pen.25297},
+  pdf = {https://onlinelibrary.wiley.com/doi/epdf/10.1002/pen.25297},
+}
+
+@inproceedings{ABb2018,
+  author          = {Amir Shamloo and Mohsen Asadbegia and Vahid Khandan and Amir Hossein Amanzadi},
+  title           = {Designing a new multifunctional peptide for metal chelation and Aβ inhibition},
+  booktitle       = abb,
+  year            = {2018},
+  abstract        = {According to the Amyloid hypothesis, as the foremost scientific explanation for Alzheimer Disease (AD), the neuropathology of AD is related to toxic fragments of amyloid beta (Aβ) protein. Based on this hypothesis, an attractive therapeutic approach was demonstrated to identify multifunctional peptides able to modulate Aβ pathologies as the source of AD. On this premise, a bifunctional polypeptide based on the iAβ5p lead compound, was designed to inhibit Aβ aggregation and free metal ions. Herein, the efficacy of this novel drug in Zn2+ and Cd2+ ion chelation was examined through an integrated technique comprising combined Docking, QM, and MD simulations. MD relaxation of a set of probable binding modes that were predicted by Molecular Docking, revealed six druggable hosts having considerable affinities. Further, free energy analysis indicated that the formation of the revealed polypeptide-ion complexes is more spontaneous than the presented Aβ-ion+ ones. These findings certified the new ability of the modified lead compound to hamper Aβ pathologies and provide helpful information in atomic details for further preclinical studies against AD.},
+  cvlibs_month   = {9},
+  img            = {./assets/img/publications/abb.png},
+  html = {https://doi.org/10.1016/j.abb.2018.06.004},
+  pdf = {https://doi.org/10.1016/j.abb.2018.06.004},
+}
