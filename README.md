@@ -1,6 +1,6 @@
 # Personal Website
 
-This repository contains the python script to generate [my homepage](https://m-niemeyer.github.io/). It is very easy to adapt to your needs, and easy to maintain as the papers are crawled automatically from `publication_list.bib` and the talks from `talk_list.bib`.
+This repository contains the python script to generate [my homepage](https://amanzadi.github.io/). It is very easy to adapt to your needs, and easy to maintain as the papers are crawled automatically from `publication_list.bib` and the talks from `talk_list.bib`.
 
 ## How to use it
 1. Update and adjust the name and bio text in the function `get_personal_data` in the `build.py` file.
@@ -13,4 +13,4 @@ This repository contains the python script to generate [my homepage](https://m-n
 
 ## Credits
 
-The overall design and open-sourcing the script is inspired by [Jon Barron's awesome template](https://jonbarron.info/) and some functionality is inspired by [Andreas Geiger's cool website](https://cvlibs.net)!
+This website is based on the lightweight and easy-to-use template from Michael Niemeyer. <a href="https://github.com/m-niemeyer/m-niemeyer.github.io" target="_blank">Checkout his github repository for instructions on how to use it</a>. <br>
