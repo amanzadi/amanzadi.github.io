@@ -10,9 +10,7 @@ def get_personal_data():
                 <p> I am just a human being. The following descriptions are simply social statuses that I have gained through my life, which you may or may not be interested in.
                 <p>
                     <span style="font-weight: bold;">Research:</span>
-                     I am excited about complex interdisciplinary problems in Biomedicine that can be tackled with learning-based systems. I am especially interested in the application of Graph Neural Networks (GNN) in biomedical research. Currently, my research focuses on identifying safe drug combinations for complex diseases with no standard treatments by integrating Systems Medicine and Deep Learning. 
-                     I am presently a Clinical Data Scientist at the <a href="https://compmed.se/" target="_blank">Unit of Computational Medicine</a> at <a href="https://ki.se/en" target="_blank">Karolinska Institute (KI)</a> and <a href="https://www.karolinska.se/en/karolinska-university-hospital/" target="_blank">Karolinska University Hospital (KUH)</a>. 
-                    <span style="color: red;">I am currently seeking PhD positions in the areas of Machine Learning and Drug Discovery & Development.</span>
+                     I am excited about complex interdisciplinary problems in Biomedicine that can be tackled with learning-based systems. I am especially interested in the application of Graph Neural Networks (GNN) in biomedical research. Currently, my research focuses on identifying safe drug combinations for complex diseases with no standard treatments by integrating Systems Medicine and Deep Learning.
                 
                 </p>
                  <p>
