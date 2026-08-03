@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+  <title id="title">Publication placeholder</title>
+  <desc id="desc">Abstract scientific network illustration</desc>
+  <rect width="800" height="450" fill="#0b1713"/>
+  <g fill="none" stroke="#34f5a0" stroke-opacity=".55" stroke-width="3">
+    <path d="M120 300 285 120 470 265 650 105M285 120l185 145M470 265l180-160"/>
+  </g>
+  <g fill="#42d9ff">
+    <circle cx="120" cy="300" r="13"/><circle cx="285" cy="120" r="13"/><circle cx="470" cy="265" r="13"/><circle cx="650" cy="105" r="13"/>
+  </g>
+</svg>

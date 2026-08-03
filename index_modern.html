@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Amir Hossein Amanzadi, researcher in biomedical AI, graph neural networks, systems medicine, and drug discovery.">
+  <meta property="og:title" content="Amir Hossein Amanzadi">
+  <meta property="og:description" content="A terminal-inspired academic homepage for biomedical AI, graph neural networks, systems medicine, and drug discovery.">
+  <meta property="og:image" content="https://amanzadi.github.io/assets/img/profile.png">
+  <meta property="og:url" content="https://amanzadi.github.io">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Amir Hossein Amanzadi</title>
+  <link rel="icon" href="assets/tabicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Inter:wght@500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #060908;
+      --terminal: rgba(9, 18, 15, 0.92);
+      --terminal-strong: #0b1713;
+      --panel: rgba(12, 28, 23, 0.78);
+      --panel-strong: rgba(15, 38, 31, 0.96);
+      --text: #d9fff2;
+      --muted: #8db6a8;
+      --soft: #5e7d72;
+      --green: #34f5a0;
+      --green-dim: rgba(52, 245, 160, 0.15);
+      --cyan: #42d9ff;
+      --cyan-dim: rgba(66, 217, 255, 0.13);
+      --amber: #ffc857;
+      --amber-dim: rgba(255, 200, 87, 0.13);
+      --danger: #ff6b6b;
+      --line: rgba(98, 255, 190, 0.16);
+      --line-strong: rgba(98, 255, 190, 0.34);
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.48);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(52, 245, 160, 0.15), transparent 28rem),
+        radial-gradient(circle at 84% 8%, rgba(66, 217, 255, 0.14), transparent 30rem),
+        radial-gradient(circle at 50% 100%, rgba(255, 200, 87, 0.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      content: "";
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(52, 245, 160, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 245, 160, 0.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black 0 62%, transparent 100%);
+    }
+
+    body::after {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      content: "";
+      pointer-events: none;
+      opacity: 0.18;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.16) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      mix-blend-mode: overlay;
+    }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(calc(100% - 36px), var(--max));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid var(--line);
+      background: rgba(6, 9, 8, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .topbar-inner {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .led {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px var(--green);
+      animation: ledPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes ledPulse {
+      50% { opacity: 0.42; box-shadow: 0 0 5px var(--green); }
+    }
+
+    .status-line {
+      overflow: hidden;
+      color: var(--muted);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .status-line span {
+      color: var(--green);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .cmd-link,
+    .mini-btn,
+    .resource-link,
+    .filter-btn,
+    .bib-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 0 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(12, 28, 23, 0.7);
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .cmd-link:hover,
+    .mini-btn:hover,
+    .resource-link:hover,
+    .filter-btn:hover,
+    .filter-btn[aria-pressed="true"],
+    .bib-toggle:hover,
+    .bib-toggle[aria-expanded="true"] {
+      border-color: var(--green);
+      background: var(--green-dim);
+      color: var(--text);
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(52, 245, 160, 0.12);
+    }
+
+    .hero {
+      padding: 58px 0 36px;
+    }
+
+    .terminal-window {
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(10, 26, 21, 0.96), rgba(6, 13, 11, 0.96));
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .window-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 43px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.035);
+      color: var(--soft);
+      font-size: 0.86rem;
+    }
+
+    .dots {
+      display: inline-flex;
+      gap: 7px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--soft);
+    }
+
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #28c840; }
+
+    .terminal-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(310px, 0.88fr);
+      gap: 0;
+    }
+
+    .terminal-main {
+      min-width: 0;
+      padding: clamp(22px, 4vw, 42px);
+      border-right: 1px solid var(--line);
+    }
+
+    .terminal-side {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      padding: clamp(18px, 3vw, 28px);
+      background:
+        linear-gradient(rgba(52, 245, 160, 0.04), transparent),
+        rgba(255, 255, 255, 0.018);
+    }
+
+    .prompt {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .prompt .user {
+      color: var(--green);
+    }
+
+    .prompt .path {
+      color: var(--cyan);
+    }
+
+    .prompt .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 1.2em;
+      margin-left: 5px;
+      vertical-align: -0.2em;
+      background: var(--green);
+      box-shadow: 0 0 14px var(--green);
+      animation: blink 1s steps(2, start) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .hero-title {
+      margin: 0 0 18px;
+      max-width: 780px;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: clamp(2.8rem, 8vw, 6.1rem);
+      line-height: 0.93;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--green);
+      text-shadow: 0 0 30px rgba(52, 245, 160, 0.26);
+    }
+
+    .terminal-copy {
+      max-width: 760px;
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.12rem);
+    }
+
+    .command-strip,
+    .link-row,
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .command-strip {
+      margin-bottom: 20px;
+    }
+
+    .cli-input-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .cli-input-row label {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .cli-input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .cli-input::placeholder {
+      color: var(--soft);
+    }
+
+    .cli-output {
+      min-height: 24px;
+      margin: 10px 0 0;
+      color: var(--amber);
+      font-size: 0.9rem;
+    }
+
+    .bio-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .bio-card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      object-position: 50% 15%;
+      filter: grayscale(0.12) contrast(1.08) saturate(0.85);
+    }
+
+    .bio-card::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      background:
+        linear-gradient(to top, rgba(6, 9, 8, 0.82), transparent 55%),
+        linear-gradient(90deg, rgba(52, 245, 160, 0.13), transparent 40%);
+    }
+
+    .bio-caption {
+      position: absolute;
+      inset: auto 14px 14px;
+      z-index: 1;
+      color: var(--text);
+    }
+
+    .bio-caption strong {
+      display: block;
+      font-size: 1.08rem;
+    }
+
+    .bio-caption span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .sequence-panel,
+    .network-panel,
+    .metric-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 38px;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--soft);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    .sequence-track {
+      overflow: hidden;
+      padding: 13px 0;
+      color: var(--green);
+      white-space: nowrap;
+      letter-spacing: 0.12em;
+    }
+
+    .sequence-track span {
+      display: inline-block;
+      min-width: max-content;
+      animation: sequenceRun 18s linear infinite;
+    }
+
+    @keyframes sequenceRun {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .network {
+      position: relative;
+      height: 178px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 22% 30%, var(--green-dim), transparent 7rem),
+        radial-gradient(circle at 74% 65%, var(--cyan-dim), transparent 8rem);
+    }
+
+    .node {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 22px var(--green);
+      animation: nodeBeat 2.8s ease-in-out infinite;
+    }
+
+    .node:nth-child(1) { left: 18%; top: 25%; }
+    .node:nth-child(2) { left: 42%; top: 18%; animation-delay: 0.2s; }
+    .node:nth-child(3) { left: 72%; top: 34%; animation-delay: 0.5s; }
+    .node:nth-child(4) { left: 30%; top: 70%; animation-delay: 0.7s; }
+    .node:nth-child(5) { left: 66%; top: 74%; animation-delay: 1s; }
+
+    .edge {
+      position: absolute;
+      height: 1px;
+      transform-origin: left center;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.75;
+    }
+
+    .edge.a { left: 20%; top: 30%; width: 27%; transform: rotate(-13deg); }
+    .edge.b { left: 44%; top: 24%; width: 31%; transform: rotate(17deg); }
+    .edge.c { left: 31%; top: 71%; width: 37%; transform: rotate(2deg); }
+    .edge.d { left: 23%; top: 34%; width: 27%; transform: rotate(58deg); }
+    .edge.e { left: 69%; top: 39%; width: 27%; transform: rotate(96deg); }
+
+    @keyframes nodeBeat {
+      50% { transform: scale(1.42); opacity: 0.7; }
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .metric {
+      min-height: 86px;
+      padding: 13px;
+      background: rgba(6, 9, 8, 0.62);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--green);
+      font-size: 1.32rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .section {
+      padding: 46px 0;
+    }
+
+    .section-terminal {
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--terminal);
+      box-shadow: var(--shadow);
+    }
+
+    .section-body {
+      padding: clamp(18px, 3vw, 30px);
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: clamp(1.6rem, 4vw, 3.1rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-title::before {
+      content: "$ ";
+      color: var(--green);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.8em;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.66fr) minmax(280px, 0.34fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .terminal-text {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.18);
+      color: var(--muted);
+    }
+
+    .terminal-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .terminal-text strong {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .file-tree {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.18);
+      color: var(--muted);
+    }
+
+    .tree-line {
+      display: block;
+      padding: 4px 0;
+    }
+
+    .tree-line.dir {
+      color: var(--cyan);
+    }
+
+    .tree-line.file {
+      padding-left: 22px;
+      color: var(--muted);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--green-dim);
+      color: var(--text);
+      font-size: 0.84rem;
+    }
+
+    .filter-row {
+      margin: 18px 0;
+    }
+
+    .publication-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .pub-card {
+      display: grid;
+      grid-template-columns: 188px minmax(0, 1fr);
+      gap: 18px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.2);
+      transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .pub-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+      box-shadow: 0 0 34px rgba(52, 245, 160, 0.09);
+    }
+
+    .pub-card.is-hidden {
+      display: none;
+    }
+
+    .pub-media {
+      position: relative;
+      overflow: hidden;
+      min-height: 140px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--terminal-strong);
+    }
+
+    .pub-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.8) contrast(1.05);
+      transition: transform 420ms ease, filter 420ms ease;
+    }
+
+    .pub-card:hover .pub-media img {
+      transform: scale(1.04);
+      filter: saturate(1) contrast(1.08);
+    }
+
+    .year-badge {
+      position: absolute;
+      left: 9px;
+      top: 9px;
+      padding: 3px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(6, 9, 8, 0.84);
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .pub-title {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: clamp(1.05rem, 2vw, 1.26rem);
+      line-height: 1.26;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .pub-title a {
+      color: inherit;
+    }
+
+    .pub-title a:hover {
+      color: var(--green);
+    }
+
+    .authors,
+    .venue {
+      margin: 0 0 7px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.52;
+    }
+
+    .authors strong {
+      color: var(--green);
+    }
+
+    .venue {
+      color: var(--soft);
+      font-style: italic;
+    }
+
+    .award {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 2px 0 10px;
+      padding: 4px 9px;
+      border: 1px solid rgba(255, 200, 87, 0.42);
+      border-radius: 999px;
+      background: var(--amber-dim);
+      color: var(--amber);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .bibtex {
+      display: none;
+      overflow-x: auto;
+      margin: 13px 0 0;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.26);
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.54;
+      white-space: pre;
+    }
+
+    .bibtex.is-open {
+      display: block;
+      animation: reveal 180ms ease;
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .talk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .talk-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .talk-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+      filter: saturate(0.85) contrast(1.05);
+    }
+
+    .talk-body {
+      padding: 16px;
+    }
+
+    .talk-body h3 {
+      margin: 0 0 8px;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 1.06rem;
+      line-height: 1.32;
+    }
+
+    .talk-body p {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      padding: 34px 0 46px;
+      color: var(--soft);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    .footer p {
+      margin: 0;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .topbar-inner,
+      .terminal-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+
+      .terminal-main {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .talk-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(calc(100% - 24px), var(--max));
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+
+      .terminal-grid {
+        display: block;
+      }
+
+      .cli-input-row {
+        grid-template-columns: 1fr;
+      }
+
+      .pub-card {
+        grid-template-columns: 1fr;
+      }
+
+      .pub-media {
+        aspect-ratio: 16 / 9;
+      }
+
+      .metrics,
+      .talk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="topbar" aria-label="Primary navigation">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top"><span class="led" aria-hidden="true"></span> amanzadi@bio-ai</a>
+      <div class="status-line">kernel: <span>gnn-drug-discovery</span> / env: <span>systems-medicine</span> / status: online</div>
+      <div class="nav-links">
+        <a class="cmd-link" href="#about">whoami</a>
+        <a class="cmd-link" href="#publications">ls papers</a>
+        <a class="cmd-link" href="#talks">run talks</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="container">
+        <div class="terminal-window reveal">
+          <div class="window-chrome">
+            <span class="dots" aria-hidden="true"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>
+            <span>~/research/biomedical-ai/session.log</span>
+            <span>zsh</span>
+          </div>
+
+          <div class="terminal-grid">
+            <div class="terminal-main">
+              <p class="prompt"><span class="user">amir@bio-ai</span>:<span class="path">~/graph-drug-discovery</span>$ ./initialize_profile<span class="cursor" aria-hidden="true"></span></p>
+              <h1 class="hero-title"><span>Amir</span> Hossein Amanzadi</h1>
+              <p class="terminal-copy">
+                Research interface for biomedical AI: graph neural networks, systems medicine, drug combinations,
+                targeted protein degradation, and protein interaction prediction.
+              </p>
+
+              <div class="command-strip" aria-label="Quick commands">
+                <a class="cmd-link" href="#about">cat about.md</a>
+                <a class="cmd-link" href="#publications">grep -R publications</a>
+                <a class="cmd-link" href="#talks">open talks/</a>
+                <a class="cmd-link" href="assets/pdf/CV_Amir_Amanzadi.pdf" target="_blank" rel="noopener">download cv.pdf</a>
+              </div>
+
+              <div class="cli-input-row" role="search">
+                <label for="commandInput">$</label>
+                <input id="commandInput" class="cli-input" type="text" autocomplete="off" placeholder="try: help, about, papers, talks, cv, mail, scholar">
+                <button class="mini-btn" id="runCommand" type="button">run</button>
+              </div>
+              <p class="cli-output" id="cliOutput" aria-live="polite">type a command or click a command above</p>
+
+              <div class="link-row" style="margin-top: 16px;">
+                <a class="resource-link" href="mailto:amir.amanzadi@gmail.com"><i class="fa-regular fa-envelope" aria-hidden="true"></i> mail</a>
+                <a class="resource-link" href="https://scholar.google.com/citations?user=YJbIHQgAAAAJ&amp;hl=en" target="_blank" rel="noopener"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> scholar</a>
+                <a class="resource-link" href="https://github.com/amanzadi" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> github</a>
+                <a class="resource-link" href="https://www.linkedin.com/in/amanzadi" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> linkedin</a>
+                <a class="resource-link" href="https://twitter.com/amanzadi" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> x/twitter</a>
+              </div>
+            </div>
+
+            <aside class="terminal-side" aria-label="Biological signal panels">
+              <div class="bio-card">
+                <img src="assets/img/profile.png" alt="Portrait of Amir Hossein Amanzadi">
+                <div class="bio-caption">
+                  <strong>profile.png loaded</strong>
+                  <span>pharmaceutical science / biomedical AI / graph learning</span>
+                </div>
+              </div>
+
+              <div class="sequence-panel">
+                <div class="panel-head"><span>sequence stream</span><span>DNA/RNA</span></div>
+                <div class="sequence-track" aria-hidden="true">
+                  <span>ATG CGA TTA GNN DRUG DISCOVERY UAC GGA PPI MODELING AUC GNN SYSTEMS MEDICINE&nbsp;&nbsp;ATG CGA TTA GNN DRUG DISCOVERY UAC GGA PPI MODELING AUC GNN SYSTEMS MEDICINE&nbsp;&nbsp;</span>
+                </div>
+              </div>
+
+              <div class="network-panel">
+                <div class="panel-head"><span>protein graph</span><span>live</span></div>
+                <div class="network" aria-hidden="true">
+                  <span class="edge a"></span><span class="edge b"></span><span class="edge c"></span><span class="edge d"></span><span class="edge e"></span>
+                  <span class="node"></span><span class="node"></span><span class="node"></span><span class="node"></span><span class="node"></span>
+                </div>
+              </div>
+
+              <div class="metric-panel">
+                <div class="panel-head"><span>active modules</span><span>3</span></div>
+                <div class="metrics">
+                  <div class="metric"><strong>GNN</strong><span>representation learning</span></div>
+                  <div class="metric"><strong>PPI</strong><span>interface prediction</span></div>
+                  <div class="metric"><strong>PSE</strong><span>polypharmacy safety</span></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-terminal reveal">
+          <div class="window-chrome">
+            <span class="dots" aria-hidden="true"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>
+            <span>cat about.md</span>
+            <span>read-only</span>
+          </div>
+          <div class="section-body">
+            <h2 class="section-title">whoami</h2>
+            <p class="muted">biographical context and research coordinates</p>
+
+            <div class="about-grid">
+              <div class="terminal-text">
+                <p>I am just a human being. The following descriptions are simply social statuses that I have gained through my life, which you may or may not be interested in.</p>
+                <p><strong>Research:</strong> I am excited about complex interdisciplinary problems in Biomedicine that can be tackled with learning-based systems. I am especially interested in the application of Graph Neural Networks in biomedical research. Currently, my research focuses on identifying safe drug combinations for complex diseases with no standard treatments by integrating Systems Medicine and Deep Learning.</p>
+                <p><strong>Bio:</strong> My MSc in Pharmaceutical Science was obtained from <a href="https://www.uu.se/en" target="_blank" rel="noopener">Uppsala University</a> and my BSc in Chemistry and Mechanical Engineering (Minor) from the <a href="https://en.sharif.edu/" target="_blank" rel="noopener">Sharif University of Technology</a>. This background spans pharmaceutical modeling, chemical synthesis, computational chemistry, structural biology, molecular dynamics, systems medicine, machine learning, and AI-enhanced drug discovery.</p>
+                <p>I have worked on the <a href="https://decision-for-liver.eu/" target="_blank" rel="noopener">DECISION for Liver EU project</a>, identifying optimal combinatorial treatments for decompensated cirrhosis, and developed a geometric deep learning pipeline for targeted protein degradation drug design in collaboration with <a href="https://www.merckgroup.com/en" target="_blank" rel="noopener">Merck KGaA</a> and <a href="https://www.boehringer-ingelheim.com/" target="_blank" rel="noopener">Boehringer Ingelheim</a>.</p>
+              </div>
+
+              <aside class="file-tree" aria-label="Research file tree">
+                <span class="tree-line dir">research/</span>
+                <span class="tree-line file">graph-neural-networks.yml</span>
+                <span class="tree-line file">drug-combinations.tsv</span>
+                <span class="tree-line file">protein-interfaces.pdb</span>
+                <span class="tree-line file">systems-medicine.json</span>
+                <span class="tree-line dir">education/</span>
+                <span class="tree-line file">uppsala-university.msc</span>
+                <span class="tree-line file">sharif-university.bsc</span>
+                <div class="chip-row">
+                  <span class="chip"><i class="fa-solid fa-dna" aria-hidden="true"></i> biomedicine</span>
+                  <span class="chip"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> graphs</span>
+                  <span class="chip"><i class="fa-solid fa-capsules" aria-hidden="true"></i> drug discovery</span>
+                  <span class="chip"><i class="fa-solid fa-microscope" aria-hidden="true"></i> systems medicine</span>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <div class="container">
+        <div class="section-terminal reveal">
+          <div class="window-chrome">
+            <span class="dots" aria-hidden="true"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>
+            <span>ls -la publications/</span>
+            <span>5 entries</span>
+          </div>
+          <div class="section-body">
+            <h2 class="section-title">publications</h2>
+            <p class="muted">filter the publication directory by year</p>
+
+            <div class="filter-row" aria-label="Filter publications by year">
+              <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">all</button>
+              <button class="filter-btn" type="button" data-filter="2022" aria-pressed="false">2022</button>
+              <button class="filter-btn" type="button" data-filter="2021" aria-pressed="false">2021</button>
+              <button class="filter-btn" type="button" data-filter="2020" aria-pressed="false">2020</button>
+              <button class="filter-btn" type="button" data-filter="2018" aria-pressed="false">2018</button>
+            </div>
+
+            <div class="publication-list">
+              <article class="pub-card reveal" data-year="2022">
+                <div class="pub-media">
+                  <img src="./assets/img/publications/ijms.png" alt="Protein interaction prediction visual">
+                  <span class="year-badge">2022</span>
+                </div>
+                <div>
+                  <h3 class="pub-title"><a href="https://doi.org/10.3390/ijms23137033" target="_blank" rel="noopener">Protein-protein interaction prediction for targeted protein degradation</a></h3>
+                  <p class="authors">Oliver Orasch, Noah Weber, Michael Muller, <strong>Amir Amanzadi</strong>, Chiara Gasbarri, Christopher Trummer</p>
+                  <p class="venue">International Journal of Molecular Sciences</p>
+                  <div class="link-row">
+                    <a class="resource-link" href="https://doi.org/10.3390/ijms23137033" target="_blank" rel="noopener">page</a>
+                    <a class="resource-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9266413/pdf/ijms-23-07033.pdf" target="_blank" rel="noopener">pdf</a>
+                    <a class="resource-link" href="https://zenodo.org/record/2625420" target="_blank" rel="noopener">supp</a>
+                    <a class="resource-link" href="https://celeristx.com/wp-content/uploads/2022/03/Celeris-Therapeutics-2022-new-changes.mp4" target="_blank" rel="noopener">video</a>
+                    <a class="resource-link" href="https://ppiorthogonal-data.s3.eu-central-1.amazonaws.com/orthogonal_dataset.zip" target="_blank" rel="noopener">code</a>
+                    <button class="bib-toggle" type="button" aria-expanded="false" aria-controls="bib-ijms2022">bibtex</button>
+                  </div>
+                  <pre class="bibtex" id="bib-ijms2022">@InProceedings{IJMS2022,
+  author    = {Oliver Orasch and Noah Weber and Michael Muller and Amir Amanzadi and Chiara Gasbarri and Christopher Trummer},
+  title     = {Protein-protein interaction prediction for targeted protein degradation},
+  booktitle = {International Journal of Molecular Sciences},
+  year      = {2022},
+}</pre>
+                </div>
+              </article>
+
+              <article class="pub-card reveal" data-year="2021">
+                <div class="pub-media">
+                  <img src="./assets/img/publications/thesis.png" alt="Graph neural network thesis visual">
+                  <span class="year-badge">2021</span>
+                </div>
+                <div>
+                  <h3 class="pub-title"><a href="http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-446691" target="_blank" rel="noopener">Predicting safe drug combinations with Graph Neural Networks (GNN)</a></h3>
+                  <p class="authors"><strong>Amir Amanzadi</strong></p>
+                  <p class="venue">Uppsala University, MSc Thesis</p>
+                  <div class="link-row">
+                    <a class="resource-link" href="http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-446691" target="_blank" rel="noopener">page</a>
+                    <a class="resource-link" href="https://www.diva-portal.org/smash/get/diva2:1570600/FULLTEXT01.pdf" target="_blank" rel="noopener">pdf</a>
+                    <a class="resource-link" href="https://github.com/amanzadi/PSE" target="_blank" rel="noopener">code</a>
+                    <button class="bib-toggle" type="button" aria-expanded="false" aria-controls="bib-uu2021">bibtex</button>
+                  </div>
+                  <pre class="bibtex" id="bib-uu2021">@InProceedings{UU2021,
+  author    = {Amir Amanzadi},
+  title     = {Predicting safe drug combinations with Graph Neural Networks (GNN)},
+  booktitle = {Uppsala University},
+  year      = {2021},
+}</pre>
+                </div>
+              </article>
+
+              <article class="pub-card reveal" data-year="2021">
+                <div class="pub-media">
+                  <img src="./assets/img/publications/rsc.jpg" alt="Polypharmacy side effect prediction visual">
+                  <span class="year-badge">2021</span>
+                </div>
+                <div>
+                  <h3 class="pub-title"><a href="https://twitter.com/RSC_CICAG/status/1439600632957214728?s=20" target="_blank" rel="noopener">Explainable polypharmacy side effect prediction with Siamese graph convolutional neural networks</a></h3>
+                  <p class="authors"><strong>Amir Amanzadi</strong>, Narsis Kiani</p>
+                  <p class="venue">4th RSC-BMCS Conference, Royal Society of Chemistry</p>
+                  <span class="award">award: Lightning Presentation</span>
+                  <div class="link-row">
+                    <a class="resource-link" href="https://twitter.com/RSC_CICAG/status/1439600632957214728?s=20" target="_blank" rel="noopener">page</a>
+                    <a class="resource-link" href="https://youtu.be/uRU9AhME1ps?t=355" target="_blank" rel="noopener">video</a>
+                    <a class="resource-link" href="https://github.com/amanzadi/PSE" target="_blank" rel="noopener">code</a>
+                    <button class="bib-toggle" type="button" aria-expanded="false" aria-controls="bib-rsc2021">bibtex</button>
+                  </div>
+                  <pre class="bibtex" id="bib-rsc2021">@InProceedings{RSC2021,
+  author    = {Amir Amanzadi and Narsis Kiani},
+  title     = {Explainable polypharmacy side effect prediction with Siamese graph convolutional neural networks},
+  booktitle = {4th RSC-BMCS Conference, Royal Society of Chemistry},
+  year      = {2021},
+}</pre>
+                </div>
+              </article>
+
+              <article class="pub-card reveal" data-year="2020">
+                <div class="pub-media">
+                  <img src="./assets/img/publications/pes.png" alt="Hydrogel nanocomposite publication visual">
+                  <span class="year-badge">2020</span>
+                </div>
+                <div>
+                  <h3 class="pub-title"><a href="https://doi.org/10.1002/pen.25297" target="_blank" rel="noopener">Both Tough and Soft Double Network Hydrogel Nanocomposite Based on O-Carboxymethyl Chitosan/Poly(vinyl alcohol) and Graphene Oxide</a></h3>
+                  <p class="authors">Ali Pourjavadi, Zahra Mazaheri Tehrani, Hamid Salami, Farzad Seidi, Anahita Motamedi, <strong>Amir Hossein Amanzadi</strong>, Ehsan Zayerzadeh, Meisam Shabanian</p>
+                  <p class="venue">Polymer Engineering &amp; Science</p>
+                  <div class="link-row">
+                    <a class="resource-link" href="https://doi.org/10.1002/pen.25297" target="_blank" rel="noopener">page</a>
+                    <a class="resource-link" href="https://onlinelibrary.wiley.com/doi/epdf/10.1002/pen.25297" target="_blank" rel="noopener">pdf</a>
+                    <button class="bib-toggle" type="button" aria-expanded="false" aria-controls="bib-pes2020">bibtex</button>
+                  </div>
+                  <pre class="bibtex" id="bib-pes2020">@InProceedings{PES2020,
+  author    = {Ali Pourjavadi and Zahra Mazaheri Tehrani and Hamid Salami and Farzad Seidi and Anahita Motamedi and Amir Hossein Amanzadi and Ehsan Zayerzadeh and Meisam Shabanian},
+  title     = {Both Tough and Soft Double Network Hydrogel Nanocomposite Based on O-Carboxymethyl Chitosan/Poly(vinyl alcohol) and Graphene Oxide},
+  booktitle = {Polymer Engineering and Science},
+  year      = {2020},
+}</pre>
+                </div>
+              </article>
+
+              <article class="pub-card reveal" data-year="2018">
+                <div class="pub-media">
+                  <img src="./assets/img/publications/abb.png" alt="Peptide design publication visual">
+                  <span class="year-badge">2018</span>
+                </div>
+                <div>
+                  <h3 class="pub-title"><a href="https://doi.org/10.1016/j.abb.2018.06.004" target="_blank" rel="noopener">Designing a new multifunctional peptide for metal chelation and A&beta; inhibition</a></h3>
+                  <p class="authors">Amir Shamloo, Mohsen Asadbegia, Vahid Khandan, <strong>Amir Hossein Amanzadi</strong></p>
+                  <p class="venue">Archives of Biochemistry and Biophysics</p>
+                  <div class="link-row">
+                    <a class="resource-link" href="https://doi.org/10.1016/j.abb.2018.06.004" target="_blank" rel="noopener">page</a>
+                    <a class="resource-link" href="https://doi.org/10.1016/j.abb.2018.06.004" target="_blank" rel="noopener">pdf</a>
+                    <button class="bib-toggle" type="button" aria-expanded="false" aria-controls="bib-abb2018">bibtex</button>
+                  </div>
+                  <pre class="bibtex" id="bib-abb2018">@InProceedings{ABb2018,
+  author    = {Amir Shamloo and Mohsen Asadbegia and Vahid Khandan and Amir Hossein Amanzadi},
+  title     = {Designing a new multifunctional peptide for metal chelation and A-beta inhibition},
+  booktitle = {Archives of Biochemistry and Biophysics},
+  year      = {2018},
+}</pre>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="talks">
+      <div class="container">
+        <div class="section-terminal reveal">
+          <div class="window-chrome">
+            <span class="dots" aria-hidden="true"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>
+            <span>run talks --public</span>
+            <span>1 session</span>
+          </div>
+          <div class="section-body">
+            <h2 class="section-title">talks</h2>
+            <p class="muted">public slides and recordings</p>
+
+            <div class="talk-grid">
+              <article class="talk-card reveal">
+                <img src="assets/img/talks/AI4DD.png" alt="Application of Graph Neural Networks in Drug Discovery talk image">
+                <div class="talk-body">
+                  <h3>Application of Graph Neural Networks (GNN) in Drug Discovery</h3>
+                  <p>Uppsala University, Sweden. 2022.</p>
+                  <div class="link-row">
+                    <a class="resource-link" href="https://youtu.be/9PAoxYOGPQY" target="_blank" rel="noopener">recording</a>
+                    <a class="resource-link" href="assets/pdf/AI4DD-GNN.pdf" target="_blank" rel="noopener">slides</a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>amanzadi.github.io :: static html terminal interface :: 2026</p>
+      <a class="resource-link" href="#top">back to top</a>
+    </div>
+  </footer>
+
+  <script>
+    const input = document.getElementById("commandInput");
+    const output = document.getElementById("cliOutput");
+    const runButton = document.getElementById("runCommand");
+    const filterButtons = document.querySelectorAll("[data-filter]");
+    const cards = document.querySelectorAll(".pub-card");
+    const revealTargets = document.querySelectorAll(".reveal");
+
+    const commands = {
+      help: "available commands: about, papers, talks, cv, mail, scholar, github, clear",
+      about: "#about",
+      whoami: "#about",
+      papers: "#publications",
+      publications: "#publications",
+      talks: "#talks",
+      cv: "assets/pdf/CV_Amir_Amanzadi.pdf",
+      mail: "mailto:amir.amanzadi@gmail.com",
+      scholar: "https://scholar.google.com/citations?user=YJbIHQgAAAAJ&hl=en",
+      github: "https://github.com/amanzadi",
+      clear: ""
+    };
+
+    function runCommand() {
+      const command = input.value.trim().toLowerCase();
+      if (!command) {
+        output.textContent = "no command entered";
+        return;
+      }
+
+      if (!(command in commands)) {
+        output.textContent = "command not found: " + command + " / try: help";
+        return;
+      }
+
+      const target = commands[command];
+      if (command === "help") {
+        output.textContent = target;
+        return;
+      }
+
+      if (command === "clear") {
+        input.value = "";
+        output.textContent = "terminal cleared";
+        return;
+      }
+
+      output.textContent = "executing: " + command;
+      if (target.startsWith("#")) {
+        document.querySelector(target).scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.open(target, "_blank", "noopener");
+      }
+    }
+
+    runButton.addEventListener("click", runCommand);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") runCommand();
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        filterButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        cards.forEach((card) => {
+          card.classList.toggle("is-hidden", filter !== "all" && card.dataset.year !== filter);
+        });
+      });
+    });
+
+    document.querySelectorAll(".bib-toggle").forEach((button) => {
+      button.addEventListener("click", () => {
+        const bib = document.getElementById(button.getAttribute("aria-controls"));
+        const next = !bib.classList.contains("is-open");
+        bib.classList.toggle("is-open", next);
+        button.setAttribute("aria-expanded", String(next));
+      });
+    });
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealTargets.forEach((target) => observer.observe(target));
+    } else {
+      revealTargets.forEach((target) => target.classList.add("is-visible"));
+    }
+  </script>
+</body>
+</html>

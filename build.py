@@ -61,7 +61,7 @@ def generate_person_html(persons, connection=", ", make_bold=True, make_bold_nam
 
 def get_paper_entry(entry_key, entry):
     s = """<div style="margin-bottom: 3em;"> <div class="row"><div class="col-sm-3">"""
-    s += f"""<img src="{entry.fields['img']}" class="img-fluid img-thumbnail" alt="Project image">"""
+    s += f"""<img src="{entry.fields.get('img', 'assets/img/publications/default.svg')}" class="img-fluid img-thumbnail" alt="Publication image">"""
     s += """</div><div class="col-sm-9">"""
 
     if 'award' in entry.fields.keys():
