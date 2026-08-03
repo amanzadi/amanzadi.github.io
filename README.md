@@ -9,8 +9,3 @@ This repository contains the python script to generate [my homepage](https://ama
 4. Replace `talk_list.pub` with your talks similar to before. Check out the function `get_talk_entry` in `build.py` for more information on accepted talk fields.
 5. Update the author websites in the function `get_author_dict` in `builds.py` to automatically generate the links to your co-authors' websites.
 6. Run `python build.py` which automatically generates the `index.html` file - the only file you need!
-7. Add credits and a link to my website; if you want me to also link to yours, send me a short message.
-
-## Credits
-
-This website is based on the lightweight and easy-to-use template from Michael Niemeyer. <a href="https://github.com/m-niemeyer/m-niemeyer.github.io" target="_blank">Checkout his github repository for instructions on how to use it</a>. <br>
