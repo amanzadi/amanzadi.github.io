@@ -1,11 +1,39 @@
-# Personal Website
+# Amir H. Amanzadi — Personal Website
 
-This repository contains the python script to generate [my homepage](https://amanzadi.github.io/). It is very easy to adapt to your needs, and easy to maintain as the papers are crawled automatically from `publication_list.bib` and the talks from `talk_list.bib`.
+Source files for [amanzadi.github.io](https://amanzadi.github.io/), a statically generated academic website hosted with GitHub Pages.
 
-## How to use it
-1. Update and adjust the name and bio text in the function `get_personal_data` in the `build.py` file.
-2. Upload your own profile photo to `assets/img/profile.jpg`.
-3. Replace `publications_list.pub` with your publications. Note that the entries are crawled from top to bottom, i.e. the first entries are shown at the top. Further, the entries contain additional fields like `html`, `code`, and more, that are used to generate the links to the project page, code, etc. Check out the function `get_paper_entry` in `build.py` for more information.
-4. Replace `talk_list.pub` with your talks similar to before. Check out the function `get_talk_entry` in `build.py` for more information on accepted talk fields.
-5. Update the author websites in the function `get_author_dict` in `builds.py` to automatically generate the links to your co-authors' websites.
-6. Run `python build.py` which automatically generates the `index.html` file - the only file you need!
+## How it works
+
+- `build.py` generates `index.html` and `cv.html`.
+- `publication_list.bib` stores the publication metadata and BibTeX records.
+- `talk_list.bib` stores talks shown in the Work section.
+- Publication images can be added manually under `assets/img/publications/`.
+- `sync_publications.py` checks ORCID and DOI metadata while preserving curated links and images.
+
+## Local development
+
+```bash
+python -m pip install -r requirements.txt
+python build.py
+```
+
+The generated pages can be previewed with any local static server, for example:
+
+```bash
+python -m http.server
+```
+
+## Publication updates
+
+Publication metadata is refreshed automatically once a month through GitHub Actions. It can also be started manually from the **Actions** tab using the **Update publications** workflow. The workflow creates a pull request for review before changes are merged.
+
+To update publications locally:
+
+```bash
+python sync_publications.py
+python build.py
+```
+
+## Deployment
+
+The **Deploy website** GitHub Actions workflow runs on every push to `main`, rebuilds the pages, and publishes them through GitHub Pages. It can also be triggered manually from the **Actions** tab.

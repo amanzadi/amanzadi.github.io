@@ -1,59 +1,126 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Curriculum vitae of Amir Hossein Amanzadi.">
-  <title>CV · Amir Hossein Amanzadi</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Amir Hossein Amanzadi — a career in biomedical research, zoomed out.">
+  <title>Zooming Out · Amir Hossein Amanzadi</title>
   <link rel="icon" href="assets/tabicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#f9f9fa; --surface:#ffffff; --text:#1a1a1a; --muted:#5e5e5e; --line:#e2e5eb; --accent:#283a80; --accent-hover:#1e2f63; --on-accent:#ffffff; --max:840px; }
-    [data-theme="dark"] { --bg:#0d1b2a; --surface:#16223a; --text:#c8d1e7; --muted:#788bb0; --line:#2a3d5e; --accent:#6b79b8; --accent-hover:#5a699c; --on-accent:#0d1b2a; }
-    * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--text); font-family:et-book,Palatino,"Palatino Linotype","Palatino LT STD","Book Antiqua",Georgia,serif; line-height:1.65; }
-    a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; } button { font:inherit; }
-    .wrap { width:min(calc(100% - 40px),var(--max)); margin-inline:auto; }
-    nav { position:relative; } nav::before, footer::before { position:absolute; left:0; right:0; content:""; border-top:1px solid var(--line); z-index:-1; } nav::before { top:50%; } footer::before { top:.825em; } .nav-inner { position:relative; display:flex; justify-content:center; gap:24px; align-items:center; min-width:350px; width:max-content; min-height:64px; margin:auto; padding:0 30px; border-right:1px solid var(--line); border-left:1px solid var(--line); background:var(--bg); } nav a { color:var(--muted); font-size:.92rem; }
-    .theme { width:16px; height:16px; padding:0; border:1px solid var(--text); border-radius:50%; background:var(--text); cursor:pointer; } [data-theme="light"] .theme { background:transparent; }
-    main { padding:74px 0; } h1,h2,h3 { font-family:et-book,Palatino,"Palatino Linotype","Palatino LT STD","Book Antiqua",Georgia,serif; line-height:1.15; } h1 { margin:0; font-family:"Cinzel",serif; font-size:clamp(2.6rem,7vw,4.5rem); } h2 { margin:0 0 4px; font-size:1.35rem; }
-    .intro, .cv-card { padding:40px; border:1px solid var(--line); border-radius:14px; background:var(--surface); box-shadow:0 18px 50px rgba(0,0,0,.12); } .intro p { color:var(--muted); }
-    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; } .button { padding:10px 15px; border:1px solid var(--accent); border-radius:5px; background:var(--accent); color:var(--on-accent); }
-    .cv-card { margin-top:28px; } .filters { display:flex; gap:8px; margin-bottom:24px; } .filter { padding:7px 13px; border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--muted); cursor:pointer; } .filter.active,.filter:hover { border-color:var(--accent); color:var(--accent); background:var(--accent); color:var(--on-accent); }
-    .cv-entry { display:grid; grid-template-columns:72px 1fr; gap:18px; padding:20px 0; border-top:1px solid var(--line); } .cv-entry[hidden] { display:none; } .year { color:var(--accent); font-size:.88rem; } .cv-entry p { margin:0; color:var(--muted); } .cv-entry h3 { margin:0; font-family:et-book,Palatino,"Palatino Linotype",Georgia,serif; }
-    footer { position:relative; padding:0 0 44px; color:var(--muted); font-size:.82rem; text-align:center; } footer span { position:relative; display:inline-block; max-width:calc(100% - 28px); padding:0 24px; border-right:1px solid var(--line); border-left:1px solid var(--line); background:var(--bg); }
-    @media(max-width:680px) { .wrap { width:min(calc(100% - 28px),var(--max)); } .nav-inner { min-width:0; width:calc(100% - 28px); padding:0 18px; gap:16px; } .intro,.cv-card { padding:26px 20px; } main { padding:46px 0; } }
+    :root { --bg:#05080d; --ink:#e8edf4; --ink-dim:#7c8a9c; --teal:#4fd1c5; --blue:#6ea8ff; --line:#1c2733; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; overflow-x:hidden; }
+    #canvas-holder { position:fixed; inset:0; z-index:1; }
+    canvas { display:block; }
+    .site-nav { position:fixed; top:0; left:0; right:0; z-index:20; display:flex; justify-content:space-between; padding:22px clamp(20px,5vw,72px); font:11px/1 "Courier New",monospace; letter-spacing:.12em; text-transform:uppercase; pointer-events:none; }
+    .site-nav a { pointer-events:auto; color:var(--ink-dim); text-decoration:none; transition:color .2s; }
+    .site-nav a:hover { color:var(--teal); }
+    #scalebar { position:fixed; right:clamp(18px,3vw,34px); top:50%; z-index:10; display:flex; flex-direction:column; align-items:center; transform:translateY(-50%); font:10px/1 "Courier New",monospace; color:var(--ink-dim); }
+    #scalebar .track { position:relative; width:2px; height:320px; background:var(--line); }
+    #scalebar .fill { position:absolute; bottom:0; width:100%; background:var(--teal); box-shadow:0 0 8px var(--teal); }
+    #scalebar .marks { position:absolute; top:0; right:18px; display:flex; height:100%; flex-direction:column; justify-content:space-between; text-align:right; }
+    #scalebar .marks span { opacity:.35; transition:opacity .2s,color .2s; }
+    #scalebar .marks span.active { color:var(--teal); opacity:1; }
+    main { position:relative; z-index:5; }
+    .scene { display:flex; min-height:100vh; flex-direction:column; justify-content:center; padding:120px 12vw 100px; pointer-events:none; }
+    .scene > div { max-width:46ch; }
+    .eyebrow { margin-bottom:14px; color:var(--teal); font:12px/1.2 "Courier New",monospace; letter-spacing:.18em; text-transform:uppercase; }
+    h1,h2 { margin:0 0 20px; font-family:"Cinzel",Georgia,serif; font-weight:500; letter-spacing:.01em; line-height:1.12; }
+    h1 { max-width:9ch; font-size:clamp(2.8rem,7vw,5.2rem); }
+    h2 { max-width:12ch; font-size:clamp(2.15rem,5vw,4rem); }
+    p { max-width:46ch; margin:0 0 22px; color:var(--ink-dim); font-size:clamp(.98rem,1.6vw,1.08rem); line-height:1.72; }
+    .stat { max-width:40ch; border-left:2px solid var(--teal); padding-left:12px; color:var(--ink); font:13px/1.6 "Courier New",monospace; }
+    .stat b { color:var(--teal); font-size:15px; }
+    .scroll-hint { position:absolute; bottom:38px; color:var(--ink-dim); font:11px/1 "Courier New",monospace; letter-spacing:.1em; animation:pulse 2s ease-in-out infinite; }
+    .spacer { height:14vh; }
+    #outro { align-items:center; text-align:center; }
+    #outro > div { max-width:52ch; }
+    #outro h2 { max-width:none; }
+    #outro .cta { pointer-events:auto; display:inline-block; margin-top:8px; padding:13px 26px; border:1px solid var(--teal); color:var(--teal); font:12px/1 "Courier New",monospace; letter-spacing:.1em; text-decoration:none; text-transform:uppercase; transition:background .2s,color .2s; }
+    #outro .cta:hover { background:var(--teal); color:var(--bg); }
+    @keyframes pulse { 50% { opacity:.45; } }
+    @media (max-width:680px) { .scene { min-height:92vh; padding:96px 58px 80px 26px; } #scalebar .track { height:230px; } .site-nav { padding:18px 22px; } .spacer { height:7vh; } }
+    @media (prefers-reduced-motion:reduce) { #canvas-holder,#scalebar { display:none; } .scene { min-height:auto; padding:100px 8vw; } .spacer { display:none; } .scroll-hint { display:none; } }
   </style>
 </head>
 <body>
-  <nav><div class="wrap nav-inner"><a href="index.html#about">About</a><a href="index.html#research">Work</a><a href="cv.html">CV</a><button class="theme" id="theme" type="button" aria-label="Switch theme"></button></div></nav>
-  <main class="wrap">
-    <section class="intro"><h1>Curriculum Vitae</h1><p>Education, talks, and selected academic activities.</p><div class="actions"><a class="button" href="assets/pdf/CV_Amir_Amanzadi.pdf" target="_blank" rel="noopener">Download PDF ↗</a></div></section>
-    <section class="cv-card"><div class="filters"><button class="filter active" data-kind="all" type="button">All</button><button class="filter" data-kind="education" type="button">Education</button><button class="filter" data-kind="talks" type="button">Talks</button></div><div id="cvEntries">
-      <article class="cv-entry" data-kind="education">
-        <span class="year">2021</span>
-        <div><h2>MSc Pharmaceutical Science</h2><p>Uppsala University</p></div>
-      </article>
-    
-      <article class="cv-entry" data-kind="education">
-        <span class="year">—</span>
-        <div><h2>BSc Chemistry · Mechanical Engineering minor</h2><p>Sharif University of Technology</p></div>
-      </article>
-    
-        <article class="cv-entry" data-kind="talks">
-          <span class="timeline-year">2022</span>
-          <div><h3>Application of Graph Neural Networks (GNN) in Drug Discovery</h3>
-          <p>Uppsala University, Sweden</p>
-          <div class="resource-links"><a href="assets/pdf/AI4DD-GNN.pdf" target="_blank" rel="noopener">slides</a> <a href="https://youtu.be/9PAoxYOGPQY" target="_blank" rel="noopener">recording</a></div></div>
-        </article>
-        </div></section>
+  <nav class="site-nav" aria-label="CV navigation"><a href="index.html">← About</a><a href="assets/pdf/CV_Amir_Amanzadi.pdf" target="_blank" rel="noopener">Download CV ↗</a></nav>
+  <div id="canvas-holder" aria-hidden="true"></div>
+  <aside id="scalebar" aria-label="Career scale"><div class="marks" id="marks"><span>Å</span><span>nm</span><span>μm</span><span>mm</span><span>cm</span><span>km</span><span>∞</span></div><div class="track"><div class="fill" id="fill"></div></div></aside>
+  <main>
+    <section class="scene" id="hero"><div><div class="eyebrow">A career, zoomed out</div><h1>Zooming Out</h1><p>Scroll from a single molecule to half a million people. Each scale below is a real chapter, in order.</p><span class="scroll-hint">↓ scroll to begin</span></div></section><div class="spacer"></div>
+    <section class="scene"><div><div class="eyebrow">Å · molecules</div><h2>Where it started</h2><p>Chemistry and mechanical engineering at Sharif. A peptide designed for metal chelation and Aβ inhibition. A bio-compatible hydrogel for wound healing.</p><div class="stat"><b>2</b> published papers before graduating</div></div></section><div class="spacer"></div>
+    <section class="scene"><div><div class="eyebrow">nm · proteins</div><h2>Targets, not guesses</h2><p>At Celeris Therapeutics, geometric deep learning to predict which protein interactions could be targeted for degradation. In-silico screening against alpha-synuclein for Parkinson's disease.</p><div class="stat">A <b>patented</b> candidate, now in lead optimization</div></div></section><div class="spacer"></div>
+    <section class="scene"><div><div class="eyebrow">μm · cells &amp; genes</div><h2>Where AI entered</h2><p>Graph representation learning for drug combinations at Karolinska Institutet. Few-shot models for early detection of Ataxia-Telangiectasia from genetic profiles.</p><div class="stat">Graph neural networks became the <b>through-line</b> of everything after</div></div></section><div class="spacer"></div>
+    <section class="scene"><div><div class="eyebrow">mm · tissue &amp; organ</div><h2>From model to patient</h2><p>The DECISION EU project at Karolinska University Hospital. Multi-omic modeling across three cohorts of decompensated cirrhosis patients.</p><div class="stat"><b>2,500+</b> patients, 3 treatments now in phase II trials</div></div></section><div class="spacer"></div>
+    <section class="scene"><div><div class="eyebrow">cm · brain</div><h2>The current chapter</h2><p>Doctoral Research Fellow at the Centre for Precision Psychiatry, University of Oslo. Multi-omics and agentic AI for psychiatric and neurological disease.</p><div class="stat">Where every earlier scale <b>converges</b></div></div></section><div class="spacer"></div>
+    <section class="scene"><div><div class="eyebrow">km · population</div><h2>Half a million people</h2><p>A metabolome-wide association study of psychotic experiences across UK Biobank. Molecular signals, connected to outcomes, at population scale.</p><div class="stat"><b>490,000</b> participants, one dataset</div></div></section><div class="spacer"></div>
+    <section class="scene" id="outro"><div><div class="eyebrow">∞ · the distant dream</div><h2>A digital twin</h2><p>A real-time biological runtime of human physiology, across every scale, in both space and time. We are nowhere near it. It still seems worth working toward.</p><a class="cta" href="assets/pdf/CV_Amir_Amanzadi.pdf" target="_blank" rel="noopener">See the full CV ↗</a></div></section>
   </main>
-  <footer><span>Last updated on August 4, 2026 · © Vibe coded by <a href="https://github.com/amanzadi" target="_blank" rel="noopener">Amir</a></span></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    const root=document.documentElement, theme=document.getElementById("theme"), saved=localStorage.getItem("theme");
-    if(saved) root.dataset.theme=saved;
-    theme.addEventListener("click",()=>{const next=root.dataset.theme==="dark"?"light":"dark";root.dataset.theme=next;localStorage.setItem("theme",next);});
-    document.querySelectorAll("[data-kind]").forEach(button=>button.addEventListener("click",()=>{const kind=button.dataset.kind;document.querySelectorAll(".filter").forEach(item=>item.classList.toggle("active",item===button));document.querySelectorAll(".cv-entry").forEach(entry=>entry.hidden=kind!=="all"&&entry.dataset.kind!==kind);}));
+    (() => {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches || !window.WebGLRenderingContext) return;
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x05080d, .026);
+      const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, .1, 300);
+      const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 680 ? 1.25 : 2));
+      renderer.setSize(innerWidth, innerHeight);
+      document.getElementById("canvas-holder").appendChild(renderer.domElement);
+      scene.add(new THREE.AmbientLight(0x2a3644, 1.35));
+      const key = new THREE.PointLight(0x4fd1c5, 2.5, 80); key.position.set(6, 6, 10); scene.add(key);
+      const rim = new THREE.PointLight(0x6ea8ff, 1, 80); rim.position.set(-8, -4, -6); scene.add(rim);
+      const groups = [], materials = [];
+      const material = (color = 0x4fd1c5, emissive = 0x0d3330) => { const value = new THREE.MeshStandardMaterial({ color, emissive, metalness:.25, roughness:.38, transparent:true }); materials.push(value); return value; };
+      const wire = () => { const value = new THREE.MeshBasicMaterial({ color:0x6ea8ff, wireframe:true, transparent:true, opacity:.16 }); materials.push(value); return value; };
+      const dim = () => { const value = new THREE.MeshStandardMaterial({ color:0x2a3644, roughness:.65, transparent:true }); materials.push(value); return value; };
+      const register = (group) => { groups.push(group); scene.add(group); return group; };
+      const setOpacity = (group, opacity) => group.traverse((node) => { if (!node.material) return; const list = Array.isArray(node.material) ? node.material : [node.material]; list.forEach((value) => { value.opacity = opacity * (value.userData.baseOpacity || 1); value.visible = opacity > .01; }); });
+
+      const molecule = register(new THREE.Group());
+      const atomGeo = new THREE.SphereGeometry(.34, 20, 20), bondGeo = new THREE.CylinderGeometry(.045, .045, 1, 8);
+      const points = [[0,0,0],[1.35,.6,.3],[-1.2,.8,-.4],[.55,-1.25,.5],[-.9,-1,.6],[2.05,-.4,-.6],[-2,-.2,.8],[.2,1.55,-.7]];
+      points.forEach((point, index) => { const atom = new THREE.Mesh(atomGeo, material(index % 3 === 0 ? 0x6ea8ff : 0x4fd1c5)); atom.position.set(...point); atom.scale.setScalar(index ? .82 : 1.3); molecule.add(atom); });
+      [[0,1],[0,2],[0,3],[0,4],[1,5],[2,6],[0,7]].forEach(([from,to]) => { const a = new THREE.Vector3(...points[from]), b = new THREE.Vector3(...points[to]), direction = b.clone().sub(a), bond = new THREE.Mesh(bondGeo, dim()); bond.scale.y = direction.length(); bond.position.copy(a).addScaledVector(direction, .5); bond.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), direction.normalize()); molecule.add(bond); });
+
+      const protein = register(new THREE.Group());
+      const foldPoints = Array.from({ length:34 }, (_, index) => { const t = index / 33 * Math.PI * 5; return new THREE.Vector3(Math.sin(t) * (1.65 + .25 * Math.cos(t * 2)), Math.cos(t * 1.7) * 1.2, Math.cos(t) * (1.65 + .25 * Math.sin(t * 3))); });
+      const fold = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(foldPoints, true, "centripetal"), 240, .19, 10, true);
+      protein.add(new THREE.Mesh(fold, material())); protein.add(new THREE.Mesh(fold, wire()));
+
+      const dna = register(new THREE.Group()), dnaAtom = new THREE.SphereGeometry(.14, 10, 10);
+      for (let index = 0; index < 30; index++) { const t = index / 29, angle = t * Math.PI * 6, y = (t - .5) * 10, x = Math.cos(angle) * 1.7, z = Math.sin(angle) * 1.7; const a = new THREE.Mesh(dnaAtom, material()), b = new THREE.Mesh(dnaAtom, material(0x6ea8ff, 0x142033)); a.position.set(x,y,z); b.position.set(-x,y,-z); dna.add(a,b); if (index % 2 === 0) { const rung = new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,3.4,6), dim()); rung.position.y = y; rung.rotation.z = Math.PI / 2; rung.rotation.y = -angle; dna.add(rung); } }
+
+      const organ = register(new THREE.Group());
+      [[0,0,0,2.2,1.2,.85],[1.25,.25,.25,1.45,.85,.7],[-1.45,-.2,.15,1.2,.75,.65]].forEach(([x,y,z,sx,sy,sz]) => { const shape = new THREE.SphereGeometry(1, 32, 24), mesh = new THREE.Mesh(shape, material()); mesh.position.set(x,y,z); mesh.scale.set(sx,sy,sz); organ.add(mesh); const outline = new THREE.Mesh(shape, wire()); outline.position.copy(mesh.position); outline.scale.copy(mesh.scale); organ.add(outline); });
+
+      const brain = register(new THREE.Group());
+      [-1,1].forEach((side) => { const shape = new THREE.SphereGeometry(1.55, 32, 24), position = shape.attributes.position; for (let index = 0; index < position.count; index++) { const x = position.getX(index), y = position.getY(index), z = position.getZ(index), noise = (Math.sin(x * 5) + Math.cos(y * 4) + Math.sin(z * 6)) * .045; position.setXYZ(index, x * (1 + noise), y * (1 + noise), z * (1 + noise)); } shape.computeVertexNormals(); const lobe = new THREE.Mesh(shape, material(0x4fd1c5, 0x123c38)); lobe.position.x = side * .88; lobe.scale.set(1, .92, 1.08); brain.add(lobe); const outline = new THREE.Mesh(shape, wire()); outline.position.copy(lobe.position); outline.scale.copy(lobe.scale); brain.add(outline); });
+
+      const population = register(new THREE.Group()), populationCount = innerWidth < 680 ? 900 : 2400, populationGeometry = new THREE.BufferGeometry(), populationPositions = new Float32Array(populationCount * 3);
+      for (let index = 0; index < populationCount; index++) { const radius = 7 + Math.random() * 2, theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1); populationPositions[index*3] = radius * Math.sin(phi) * Math.cos(theta); populationPositions[index*3+1] = radius * Math.sin(phi) * Math.sin(theta); populationPositions[index*3+2] = radius * Math.cos(phi); }
+      populationGeometry.setAttribute("position", new THREE.BufferAttribute(populationPositions, 3)); const populationMaterial = new THREE.PointsMaterial({ color:0x4fd1c5, size:.085, transparent:true, blending:THREE.AdditiveBlending }); materials.push(populationMaterial); population.add(new THREE.Points(populationGeometry, populationMaterial));
+
+      const twin = register(new THREE.Group()), twinMaterial = material(0x4fd1c5, 0x1f5a54), addPart = (geometry, x, y, z, scale = [1,1,1], rotation = 0) => { const part = new THREE.Mesh(geometry, twinMaterial); part.position.set(x,y,z); part.scale.set(...scale); part.rotation.z = rotation; twin.add(part); };
+      addPart(new THREE.SphereGeometry(.5,20,20),0,3.35,0); addPart(new THREE.CapsuleGeometry(.65,2.1,4,12),0,1.6,0); addPart(new THREE.CapsuleGeometry(.19,1.7,4,8),-1,1.85,0,[1,1,1],.35); addPart(new THREE.CapsuleGeometry(.19,1.7,4,8),1,1.85,0,[1,1,1],-.35); addPart(new THREE.CapsuleGeometry(.24,1.9,4,8),-.38,-.65,0); addPart(new THREE.CapsuleGeometry(.24,1.9,4,8),.38,-.65,0);
+
+      const stars = new THREE.Group(), starCount = 700, starGeometry = new THREE.BufferGeometry(), starPositions = new Float32Array(starCount * 3);
+      for (let index = 0; index < starCount; index++) { starPositions[index*3] = (Math.random() - .5) * 90; starPositions[index*3+1] = (Math.random() - .5) * 90; starPositions[index*3+2] = (Math.random() - .5) * 90 - 20; }
+      starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3)); stars.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color:0x1c2733, size:.08 }))); scene.add(stars);
+      groups.forEach((group) => setOpacity(group, 0));
+
+      const waypoints = [[0,.5,15],[1.6,.3,5],[0,.3,6.5],[2.4,0,7.5],[-1,.6,7],[0,0,5.5],[0,0,15],[0,.5,8.5]].map((point) => new THREE.Vector3(...point));
+      const marks = [...document.querySelectorAll("#marks span")], fill = document.getElementById("fill"), target = new THREE.Vector3();
+      const progress = () => Math.min(Math.max(scrollY / Math.max(document.documentElement.scrollHeight - innerHeight, 1), 0), 1) * 7;
+      const update = () => { const t = progress(), index = Math.min(Math.floor(t), 6), local = t - index; camera.position.lerpVectors(waypoints[index], waypoints[index + 1], local); camera.lookAt(0,0,0); fill.style.height = `${t / 7 * 100}%`; marks.forEach((mark, markIndex) => mark.classList.toggle("active", markIndex === Math.min(Math.max(Math.round(t) - 1, 0), 6))); groups.forEach((group, groupIndex) => setOpacity(group, Math.max(0, 1 - Math.abs(t - (groupIndex ? groupIndex + 1 : .75)) / 1.15))); };
+      const clock = new THREE.Clock();
+      const animate = () => { requestAnimationFrame(animate); const delta = clock.getDelta(); stars.rotation.y += .0002; molecule.rotation.y += .05 * delta; protein.rotation.y += .15 * delta; dna.rotation.y += .08 * delta; organ.rotation.y += .06 * delta; brain.rotation.y += .05 * delta; population.rotation.y += .02 * delta; twin.rotation.y += .1 * delta; renderer.render(scene, camera); };
+      addEventListener("scroll", update, { passive:true }); addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 680 ? 1.25 : 2)); renderer.setSize(innerWidth, innerHeight); }); update(); animate();
+    })();
   </script>
 </body>
 </html>
