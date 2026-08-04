@@ -388,7 +388,7 @@ def get_index_html():
 
 
 def get_cv_html():
-    return """<!doctype html>
+    html = """<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -403,8 +403,9 @@ def get_cv_html():
     :root { --bg:#05080d; --ink:#e8edf4; --ink-dim:#7c8a9c; --teal:#4fd1c5; --blue:#6ea8ff; --line:#1c2733; }
     * { box-sizing:border-box; }
     html,body { margin:0; background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; overflow-x:hidden; }
-    #canvas-holder { position:fixed; inset:0; z-index:1; }
+    #canvas-holder { position:fixed; inset:0; z-index:4; pointer-events:none; }
     canvas { display:block; }
+    .webgl-fallback { position:absolute; inset:auto 8vw 8vh; color:var(--ink-dim); font:12px/1.6 "Courier New",monospace; }
     .site-nav { position:fixed; top:0; left:0; right:0; z-index:20; display:flex; justify-content:space-between; padding:22px clamp(20px,5vw,72px); font:11px/1 "Courier New",monospace; letter-spacing:.12em; text-transform:uppercase; pointer-events:none; }
     .site-nav a { pointer-events:auto; color:var(--ink-dim); text-decoration:none; transition:color .2s; }
     .site-nav a:hover { color:var(--teal); }
@@ -450,10 +451,11 @@ def get_cv_html():
     <section class="scene"><div><div class="eyebrow">km · population</div><h2>Half a million people</h2><p>A metabolome-wide association study of psychotic experiences across UK Biobank. Molecular signals, connected to outcomes, at population scale.</p><div class="stat"><b>490,000</b> participants, one dataset</div></div></section><div class="spacer"></div>
     <section class="scene" id="outro"><div><div class="eyebrow">∞ · the distant dream</div><h2>A digital twin</h2><p>A real-time biological runtime of human physiology, across every scale, in both space and time. We are nowhere near it. It still seems worth working toward.</p><a class="cta" href="assets/pdf/CV_Amir_Amanzadi.pdf" target="_blank" rel="noopener">See the full CV ↗</a></div></section>
   </main>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>__THREE_RUNTIME__</script>
   <script>
-    (() => {
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches || !window.WebGLRenderingContext) return;
+    (() => { try {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (!window.WebGLRenderingContext || !window.THREE) { document.getElementById("canvas-holder").innerHTML = '<p class="webgl-fallback">3D preview is unavailable in this browser.</p>'; return; }
       const scene = new THREE.Scene();
       scene.fog = new THREE.FogExp2(0x05080d, .026);
       const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, .1, 300);
@@ -503,18 +505,19 @@ def get_cv_html():
       starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3)); stars.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color:0x1c2733, size:.08 }))); scene.add(stars);
       groups.forEach((group) => setOpacity(group, 0));
 
-      const waypoints = [[0,.5,15],[1.6,.3,5],[0,.3,6.5],[2.4,0,7.5],[-1,.6,7],[0,0,5.5],[0,0,15],[0,.5,8.5]].map((point) => new THREE.Vector3(...point));
+      const waypoints = [[0,.5,9],[1.6,.3,5],[0,.3,6.5],[2.4,0,7.5],[-1,.6,7],[0,0,5.5],[0,0,15],[0,.5,8.5]].map((point) => new THREE.Vector3(...point));
       const marks = [...document.querySelectorAll("#marks span")], fill = document.getElementById("fill"), target = new THREE.Vector3();
       const progress = () => Math.min(Math.max(scrollY / Math.max(document.documentElement.scrollHeight - innerHeight, 1), 0), 1) * 7;
-      const update = () => { const t = progress(), index = Math.min(Math.floor(t), 6), local = t - index; camera.position.lerpVectors(waypoints[index], waypoints[index + 1], local); camera.lookAt(0,0,0); fill.style.height = `${t / 7 * 100}%`; marks.forEach((mark, markIndex) => mark.classList.toggle("active", markIndex === Math.min(Math.max(Math.round(t) - 1, 0), 6))); groups.forEach((group, groupIndex) => setOpacity(group, Math.max(0, 1 - Math.abs(t - (groupIndex ? groupIndex + 1 : .75)) / 1.15))); };
+      const update = () => { const t = progress(), index = Math.min(Math.floor(t), 6), local = t - index; camera.position.lerpVectors(waypoints[index], waypoints[index + 1], local); camera.lookAt(0,0,0); fill.style.height = `${t / 7 * 100}%`; marks.forEach((mark, markIndex) => mark.classList.toggle("active", markIndex === Math.min(Math.max(Math.round(t) - 1, 0), 6))); groups.forEach((group, groupIndex) => setOpacity(group, Math.max(0, 1 - Math.abs(t - (groupIndex ? groupIndex + 1 : .2)) / 1.15))); };
       const clock = new THREE.Clock();
       const animate = () => { requestAnimationFrame(animate); const delta = clock.getDelta(); stars.rotation.y += .0002; molecule.rotation.y += .05 * delta; protein.rotation.y += .15 * delta; dna.rotation.y += .08 * delta; organ.rotation.y += .06 * delta; brain.rotation.y += .05 * delta; population.rotation.y += .02 * delta; twin.rotation.y += .1 * delta; renderer.render(scene, camera); };
       addEventListener("scroll", update, { passive:true }); addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 680 ? 1.25 : 2)); renderer.setSize(innerWidth, innerHeight); }); update(); animate();
-    })();
+    } catch (error) { console.error(error); document.getElementById("canvas-holder").innerHTML = '<p class="webgl-fallback">3D preview could not start in this browser.</p>'; } })();
   </script>
 </body>
 </html>
 """
+    return html.replace("__THREE_RUNTIME__", Path("assets/js/three-r128.min.js").read_text(encoding="utf-8"))
 
 
 def write_index_html(filename="index.html"):
