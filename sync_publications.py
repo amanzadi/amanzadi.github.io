@@ -16,6 +16,7 @@ from urllib.request import Request, urlopen
 ORCID = "0000-0002-0243-5900"
 BIB_PATH = Path("publication_list.bib")
 DEFAULT_IMAGE = "assets/img/publications/default.svg"
+IMAGE_SUFFIXES = (".png", ".jpg", ".jpeg", ".webp", ".svg")
 
 
 @dataclass
@@ -176,6 +177,14 @@ def normalized_work(summary: dict) -> dict:
     }
 
 
+def image_for_key(key: str) -> str:
+    for suffix in IMAGE_SUFFIXES:
+        candidate = Path("assets/img/publications") / f"{key}{suffix}"
+        if candidate.exists():
+            return candidate.as_posix()
+    return DEFAULT_IMAGE
+
+
 def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
     by_doi = {entry.fields.get("doi", "").lower(): entry for entry in entries if entry.fields.get("doi")}
     by_title = {title_key(entry.fields.get("title", "")): entry for entry in entries}
@@ -192,7 +201,7 @@ def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
             while key in used:
                 key = f"{base}{work['year']}_{suffix}"
                 suffix += 1
-            entry = BibEntry("inproceedings", key, {"img": DEFAULT_IMAGE, "html": work["html"]})
+            entry = BibEntry("inproceedings", key, {"img": image_for_key(key), "html": work["html"]})
             entries.append(entry)
             changed += 1
         before = dict(entry.fields)
@@ -207,6 +216,8 @@ def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
             entry.fields["doi"] = work["doi"]
         if work["html"] and not entry.fields.get("html"):
             entry.fields["html"] = work["html"]
+        if entry.fields.get("img") == DEFAULT_IMAGE:
+            entry.fields["img"] = image_for_key(entry.key)
         if entry.fields != before:
             changed += 1
     return changed
