@@ -11,6 +11,7 @@ SCHOLAR = "https://scholar.google.com/citations?user=YJbIHQgAAAAJ&hl=en"
 GITHUB = "https://github.com/amanzadi"
 LINKEDIN = "https://www.linkedin.com/in/amanzadi"
 TWITTER = "https://twitter.com/amanzadi"
+CV_PDF = "assets/pdf/CV_Amir_Amanzadi.pdf"
 
 
 def get_personal_data():
@@ -18,7 +19,7 @@ def get_personal_data():
     <p>I'm just a human being. The descriptions below are social statuses I've collected along the way, which you may or may not find interesting.</p>
     <p>My name is Amir, a researcher with an R&amp;D mindset, working across industry and academia, from hands-on wet lab research to large-scale AI deployment. One goal has stayed constant: building methods and tools that help improve human health and longevity. I'm currently a Doctoral Research Fellow in Medicine at the Institute of Clinical Medicine, <a href="https://scholar.google.com/citations?view_op=view_org&amp;hl=en&amp;org=4617098211100467394" target="_blank" rel="noopener">University of Oslo</a>, and <a href="https://www.ous-research.no/" target="_blank" rel="noopener">Oslo University Hospital</a>, working at the <a href="https://www.med.uio.no/klinmed/english/about/organization/divisions/mental-health-addiction/centre-precision-psychiatry/index.html" target="_blank" rel="noopener">Centre for Precision Psychiatry</a> on multi-omics and agentic AI for psychiatric and neurological disease.</p>
     <p>I hold a Master's in Pharmaceutical Sciences from <a href="https://www.uu.se/en" target="_blank" rel="noopener">Uppsala University</a> and double majored in Chemistry and Mechanical Engineering at <a href="https://en.sharif.edu/" target="_blank" rel="noopener">Sharif University of Technology</a>, with roles at <a href="https://ki.se/en" target="_blank" rel="noopener">Karolinska Institutet</a>, <a href="https://www.cmm.ki.se/" target="_blank" rel="noopener">Centre for Molecular Medicine</a>, and <a href="https://celeristx.com" target="_blank" rel="noopener">Celeris Therapeutics</a>. On the AI side, I've worked on AI solution architecture, graph neural networks, and generative AI at <a href="https://www.prepaire.com/" target="_blank" rel="noopener">Prepaire Labs</a>, <a href="https://www.algorithmicdynamics.net/" target="_blank" rel="noopener">Algorithmic Dynamics Lab</a>, and my own ventures, <a href="https://zetazi.com/" target="_blank" rel="noopener">Zetazi</a>, <a href="https://www.linkedin.com/company/shenakhtpajouh" target="_blank" rel="noopener">Cognition Research</a>, <a href="https://www.linkedin.com/company/sharif-cognitive-sciences-community-shenasa/home/" target="_blank" rel="noopener">Shenasa</a>, and <a href="https://linkedin.com/company/yarai/" target="_blank" rel="noopener">Yar AI</a>.</p>
-    <p>More in my <a href="cv.html">CV</a>. The interesting parts are harder to list, so feel free to email me.</p>
+    <p>More in my <a href="{CV_PDF}" target="_blank" rel="noopener">CV</a>. The interesting parts are harder to list, so feel free to email me.</p>
     """
     education = [
         ("MSc Pharmaceutical Science", "Uppsala University", "2021"),
@@ -284,7 +285,7 @@ def get_index_html():
   <nav class="nav" aria-label="Primary navigation">
     <div class="wrap nav-inner">
       <div class="nav-links">
-        <a href="#about" data-section="about">About</a><a href="#perspective" data-section="perspective">Perspective</a><a href="#research" data-section="research">Work</a><a href="cv.html">CV</a>
+        <a href="#about" data-section="about">About</a><a href="#perspective" data-section="perspective">Perspective</a><a href="#research" data-section="research">Work</a><a href="{CV_PDF}" target="_blank" rel="noopener">CV</a>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme"></button>
       </div>
     </div>
@@ -299,7 +300,7 @@ def get_index_html():
           <div class="hero-copy">{bio}</div>
           <div class="socials" aria-label="Social and academic profiles">
             <a href="mailto:{EMAIL}" aria-label="Email"><i class="fa-regular fa-envelope" aria-hidden="true"></i></a>
-            <a href="cv.html" aria-label="Interactive CV"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></a>
+            <a href="{CV_PDF}" target="_blank" rel="noopener" aria-label="Download CV"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></a>
             <a href="https://orcid.org/{ORCID}" target="_blank" rel="noopener" aria-label="ORCID"><i class="fa-brands fa-orcid" aria-hidden="true"></i></a>
             <a href="{SCHOLAR}" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></a>
             <a href="{GITHUB}" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
