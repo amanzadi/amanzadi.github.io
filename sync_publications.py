@@ -231,6 +231,69 @@ def work_type(work: dict) -> str:
     return "conference" if re.search(r"conference|abstract|symposium|congress|proceedings", venue) else "paper"
 
 
+UA = {"User-Agent": "Mozilla/5.0 (compatible; amanzadi.github.io publication updater)"}
+
+
+def http_get(url: str, limit: int = 3_000_000) -> tuple[bytes, str, str]:
+    with urlopen(Request(url, headers=UA), timeout=30) as response:
+        return response.read(limit), response.headers.get_content_type(), response.geturl()
+
+
+def crossref_lookup(title: str) -> dict:
+    """Find a DOI for an entry that has no links, accepting only an exact title match."""
+    data = fetch_json("https://api.crossref.org/works?rows=3&select=DOI,title,URL&query.bibliographic=" + quote(title))
+    for item in data.get("message", {}).get("items", []):
+        if item.get("title") and title_key(item["title"][0]) == title_key(title):
+            return item
+    return {}
+
+
+def find_image_url(entry: BibEntry) -> str:
+    """Page preview image (og:image) of the project/paper page, else the publisher's logo."""
+    from urllib.parse import urljoin, urlparse
+    final = ""
+    for field_name in ("html", "pdf"):
+        page = entry.fields.get(field_name, "")
+        if not page.startswith("http"):
+            continue
+        try:
+            body, _, final = http_get(page)
+        except Exception:
+            continue
+        text = body.decode("utf-8", "ignore")
+        match = re.search(r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]*content=["\']([^"\']+)', text, re.I) \
+            or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]*(?:property|name)=["\'](?:og:image|twitter:image)["\']', text, re.I)
+        if match:
+            return urljoin(final, match.group(1))
+    if final:
+        host = ".".join(urlparse(final).hostname.split(".")[-2:])
+        return f"https://www.google.com/s2/favicons?sz=128&domain={host}"
+    return ""
+
+
+def fetch_image(entry: BibEntry) -> bool:
+    try:
+        if not (entry.fields.get("doi") or entry.fields.get("pdf") or entry.fields.get("html")):
+            hit = crossref_lookup(entry.fields.get("title", ""))
+            if hit:
+                entry.fields["doi"] = hit["DOI"]
+                entry.fields["pdf"] = hit["URL"]
+        url = find_image_url(entry)
+        if not url:
+            return False
+        body, content_type, _ = http_get(url)
+        extension = {"image/png": ".png", "image/jpeg": ".jpg", "image/webp": ".webp", "image/svg+xml": ".svg"}.get(content_type)
+        if not extension or len(body) < 200:
+            return False
+        path = Path("assets/img/publications") / f"{entry.key}{extension}"
+        path.write_bytes(body)
+        entry.fields["img"] = path.as_posix()
+        return True
+    except Exception as error:
+        print(f"warning: no image for {entry.key}: {error}", file=sys.stderr)
+        return False
+
+
 def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
     by_doi = {entry.fields.get("doi", "").lower(): entry for entry in entries if entry.fields.get("doi")}
     by_title = {title_key(entry.fields.get("title", "")): entry for entry in entries}
@@ -292,6 +355,9 @@ def main() -> int:
     seen = {title_key(entry.fields.get("title", "")) for entry in entries} | {title_key(w["title"]) for w in works}
     works += [w for w in scholar_works(seen) if title_key(w["title"]) not in {title_key(x["title"]) for x in works}]
     changed = update_entries(entries, works)
+    for entry in entries:
+        if entry.fields.get("img", DEFAULT_IMAGE).endswith("default.svg") and fetch_image(entry):
+            changed += 1
     BIB_PATH.write_text(format_bibtex(prefix, entries), encoding="utf-8")
     print(f"processed {len(works)} ORCID/Scholar works; changed {changed} BibTeX records")
     return 0

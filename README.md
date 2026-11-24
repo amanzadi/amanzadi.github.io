@@ -7,7 +7,7 @@ Source files for [amanzadi.github.io](https://amanzadi.github.io/), a statically
 - `build.py` generates `index.html` and `cv.html`.
 - `publication_list.bib` stores the publication metadata and BibTeX records.
 - `talk_list.bib` stores talks shown in the Work section.
-- Publication images can be added manually under `assets/img/publications/`.
+- Publication images can be added manually under `assets/img/publications/`. Entries without an image get one automatically by `sync_publications.py`: the paper/project page preview image, else the publisher logo. Manually set images are never overwritten.
 - `sync_publications.py` checks ORCID and DOI metadata while preserving curated links and images.
 
 ## Local development
