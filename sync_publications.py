@@ -224,6 +224,13 @@ def image_for_key(key: str) -> str:
     return DEFAULT_IMAGE
 
 
+def work_type(work: dict) -> str:
+    venue = f"{work['booktitle']} {work['title']}".lower()
+    if re.search(r"preprint|rxiv", venue):
+        return "preprint"
+    return "conference" if re.search(r"conference|abstract|symposium|congress|proceedings", venue) else "paper"
+
+
 def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
     by_doi = {entry.fields.get("doi", "").lower(): entry for entry in entries if entry.fields.get("doi")}
     by_title = {title_key(entry.fields.get("title", "")): entry for entry in entries}
@@ -240,7 +247,7 @@ def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
             while key in used:
                 key = f"{base}{work['year']}_{suffix}"
                 suffix += 1
-            entry = BibEntry("inproceedings", key, {"img": image_for_key(key), **({"html": work["html"]} if work["html"] else {})})
+            entry = BibEntry("inproceedings", key, {"img": image_for_key(key), "type": work_type(work), **({"pdf": work["html"]} if work["html"] else {})})
             entries.append(entry)
             by_title[title_key(work["title"])] = entry
             if work["doi"]:
@@ -256,8 +263,8 @@ def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
             })
         if work["doi"] and not entry.fields.get("doi"):
             entry.fields["doi"] = work["doi"]
-        if work["html"] and not entry.fields.get("html"):
-            entry.fields["html"] = work["html"]
+        if work["html"] and not entry.fields.get("pdf") and not entry.fields.get("html"):
+            entry.fields["pdf"] = work["html"]
         if entry.fields.get("img") == DEFAULT_IMAGE:
             entry.fields["img"] = image_for_key(entry.key)
         if entry.fields != before:

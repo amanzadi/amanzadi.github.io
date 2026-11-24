@@ -94,7 +94,8 @@ def get_publications():
         title = escape(entry.fields.get("title", ""))
         venue = escape(entry.fields.get("booktitle", ""))
         image = safe_url(entry.fields.get("img", "assets/img/publications/default.svg"))
-        tags = f"publication {year}"
+        kind = entry.fields.get("type", "paper").strip().lower()
+        tags = f"publication {year} {'paper' if kind == 'thesis' else kind}"
         if any(entry.fields.get(field) not in (None, "", "-") for field in ("html", "blog")):
             tags += " project"
         if entry.fields.get("code") not in (None, "", "-"):
@@ -330,7 +331,7 @@ def get_index_html():
       <div class="wrap">
         <div class="section-heading"><h2>Work</h2></div>
         <div class="filter-row" style="margin-top: 34px;">
-          <button class="filter active" data-filter="all" type="button">All</button><button class="filter" data-filter="publication" type="button">Publications</button><button class="filter" data-filter="talks" type="button">Talks</button><button class="filter" data-filter="project" type="button">Projects</button><button class="filter" data-filter="repository" type="button">Repositories</button>
+          <button class="filter active" data-filter="all" type="button">All</button><button class="filter" data-filter="paper" type="button">Papers</button><button class="filter" data-filter="conference" type="button">Conference</button><button class="filter" data-filter="preprint" type="button">Preprints</button><button class="filter" data-filter="talks" type="button">Talks</button><button class="filter" data-filter="project" type="button">Projects</button><button class="filter" data-filter="repository" type="button">Repositories</button>
           <input class="search" id="researchSearch" type="search" placeholder="Search work" aria-label="Search work">
         </div>
         <div class="research-list" id="researchList">{work_items}</div>
