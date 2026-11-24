@@ -1,0 +1,2 @@
+scholarly
+bibtexparser<2

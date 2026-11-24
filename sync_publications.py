@@ -14,6 +14,7 @@ from urllib.request import Request, urlopen
 
 
 ORCID = "0000-0002-0243-5900"
+SCHOLAR_ID = "YJbIHQgAAAAJ"
 BIB_PATH = Path("publication_list.bib")
 DEFAULT_IMAGE = "assets/img/publications/default.svg"
 IMAGE_SUFFIXES = (".png", ".jpg", ".jpeg", ".webp", ".svg")
@@ -110,7 +111,7 @@ def format_bibtex(prefix: str, entries: list[BibEntry]) -> str:
     for entry in entries:
         chunks.append(f"@{entry.kind}{{{entry.key},")
         for name, value in entry.fields.items():
-            if re.fullmatch(r"[a-z][a-z0-9_]*", value) and name == "booktitle":
+            if name == "booktitle" and re.search(rf"@string\s*\{{\s*{re.escape(value)}\s*=", prefix, re.I):
                 rendered = value
             else:
                 rendered = "{" + value.replace("}", "}").strip() + "}"
@@ -177,6 +178,44 @@ def normalized_work(summary: dict) -> dict:
     }
 
 
+def scholar_works(known_titles: set[str]) -> list[dict]:
+    """Fetch works from Google Scholar (needs `pip install scholarly`; run from a home connection, not CI)."""
+    try:
+        from scholarly import scholarly
+    except ImportError:
+        print("warning: scholarly not installed; skipping Google Scholar", file=sys.stderr)
+        return []
+    try:
+        author = scholarly.fill(scholarly.search_author_id(SCHOLAR_ID), sections=["publications"])
+    except Exception as error:
+        print(f"warning: Google Scholar fetch failed: {error}", file=sys.stderr)
+        return []
+    works = []
+    for pub in author.get("publications", []):
+        bib = pub.get("bib", {})
+        title = bib.get("title", "").strip()
+        if not title:
+            continue
+        authors, citation = [], bib.get("citation", "")
+        if title_key(title) not in known_titles:  # only fetch full author list for new items
+            try:
+                bib = scholarly.fill(pub).get("bib", bib)
+                authors = [a.strip() for a in bib.get("author", "").split(" and ") if a.strip()]
+                citation = bib.get("citation") or bib.get("journal") or bib.get("conference") or citation
+            except Exception as error:
+                print(f"warning: could not fill Scholar record '{title}': {error}", file=sys.stderr)
+        venue = re.split(r",?\s+\d", citation or "", maxsplit=1)[0].strip() or bib.get("journal") or "Google Scholar"
+        works.append({
+            "doi": "",
+            "title": title,
+            "authors": authors or ["Amir Amanzadi"],
+            "booktitle": venue,
+            "year": str(bib.get("pub_year", "")),
+            "html": pub.get("pub_url", ""),
+        })
+    return works
+
+
 def image_for_key(key: str) -> str:
     for suffix in IMAGE_SUFFIXES:
         candidate = Path("assets/img/publications") / f"{key}{suffix}"
@@ -201,8 +240,11 @@ def update_entries(entries: list[BibEntry], works: list[dict]) -> int:
             while key in used:
                 key = f"{base}{work['year']}_{suffix}"
                 suffix += 1
-            entry = BibEntry("inproceedings", key, {"img": image_for_key(key), "html": work["html"]})
+            entry = BibEntry("inproceedings", key, {"img": image_for_key(key), **({"html": work["html"]} if work["html"] else {})})
             entries.append(entry)
+            by_title[title_key(work["title"])] = entry
+            if work["doi"]:
+                by_doi[work["doi"].lower()] = entry
             changed += 1
         before = dict(entry.fields)
         if is_new:
@@ -240,9 +282,11 @@ def main() -> int:
         return 0
     prefix, entries = parse_bibtex(BIB_PATH.read_text(encoding="utf-8"))
     works = [normalized_work(summary) for summary in orcid_work_summaries()]
+    seen = {title_key(entry.fields.get("title", "")) for entry in entries} | {title_key(w["title"]) for w in works}
+    works += [w for w in scholar_works(seen) if title_key(w["title"]) not in {title_key(x["title"]) for x in works}]
     changed = update_entries(entries, works)
     BIB_PATH.write_text(format_bibtex(prefix, entries), encoding="utf-8")
-    print(f"processed {len(works)} ORCID works; changed {changed} BibTeX records")
+    print(f"processed {len(works)} ORCID/Scholar works; changed {changed} BibTeX records")
     return 0
 
 
